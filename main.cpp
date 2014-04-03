@@ -32,8 +32,9 @@ bool address_r2[4] = {true, false, false, true};
 int int_address_r1 = 0;
 int int_address_r2 = 0;
 
+Registers reg;
+
 void regvals(){
-    Registers reg;
     cout << endl << "\tPipe: \t\t";
     for(n=0;n<8;n++){cout << reg.pipe[n];}
     cout << endl << "\tImm: \t";
@@ -53,7 +54,6 @@ void regvals(){
 }
 
 void op_and(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "and";
     for(n=0; n<8; n++){
@@ -67,7 +67,6 @@ void op_and(){
 }
 
 void op_andi(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "andi";
     for(n=0; n<8; n++){
@@ -81,7 +80,6 @@ void op_andi(){
 }
 
 void op_nand(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "nand";
     for(n=0; n<8; n++){
@@ -95,7 +93,6 @@ void op_nand(){
 }
 
 void op_nandi(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "nandi" << endl << "------";
     for(n=0; n<8; n++){
@@ -109,7 +106,6 @@ void op_nandi(){
 }
 
 void op_or(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "or" << endl << "------";
     for(n=0; n<8; n++){
@@ -123,7 +119,6 @@ void op_or(){
 }
 
 void op_ori(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "ori" << endl << "------";
     for(n=0; n<8; n++){
@@ -137,7 +132,6 @@ void op_ori(){
 }
 
 void op_nor(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "nor" << endl << "------";
     for(n=0; n<8; n++){
@@ -151,7 +145,6 @@ void op_nor(){
 }
 
 void op_nori(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "nori" << endl << "------";
     for(n=0; n<8; n++){
@@ -165,7 +158,6 @@ void op_nori(){
 }
 
 void op_xor(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "xor" << endl << "------";
     for(n=0; n<8; n++){
@@ -179,7 +171,6 @@ void op_xor(){
 }
 
 void op_xori(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "xori" << endl << "------";
     for(n=0; n<8; n++){
@@ -193,7 +184,6 @@ void op_xori(){
 }
 
 void op_xnor(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "xnor" << endl << "------";
     for(n=0; n<8; n++){
@@ -207,7 +197,6 @@ void op_xnor(){
 }
 
 void op_xnori(){
-    Registers reg;
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";
     cout << endl << "xnori" << endl << "------";
     for(n=0; n<8; n++){

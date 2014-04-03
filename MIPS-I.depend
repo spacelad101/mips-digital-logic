@@ -2,7 +2,7 @@
 1395501137 source:c:\users\noah\documents\programming\double dabble implementation\mips-i\main.cpp
 	<iostream>
 
-1396562529 source:c:\users\noah\documents\programming\mips-i\main.cpp
+1396564364 source:c:\users\noah\documents\programming\mips-i\main.cpp
 	<iostream>
 	<vector>
 	<windows.h>
@@ -15,6 +15,5 @@
 	<windows.h>
 	"registers.h"
 
-1396563178 c:\users\noah\documents\programming\mips-i\registers.h
-	<iostream>
+1396564672 c:\users\noah\documents\programming\mips-i\registers.h
 
