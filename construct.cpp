@@ -11,4 +11,5 @@ int construct(){
     for(int n=0;n<8;n++){reg.rdest[n]=false;}
     for(int n=0;n<8;n++){reg.lo[n]=false;}
     for(int n=0;n<8;n++){reg.hi[n]=false;}
+    return 0;
 }

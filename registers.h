@@ -2,7 +2,6 @@
 #define REGISTERS_H
 class Registers{
     public:
-        Registers();
         bool pipe[8];
         bool imm[16];
         bool rsrc1[8];
