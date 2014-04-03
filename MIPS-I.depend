@@ -14,9 +14,14 @@
 	<windows.h>
 	"registers.h"
 
-1396567390 c:\users\noah\documents\programming\mips-i\registers.h
+1396568688 c:\users\noah\documents\programming\mips-i\registers.h
 
-1396567376 source:c:\users\noah\documents\programming\mips-i\construct.cpp
+1396568352 source:c:\users\noah\documents\programming\mips-i\construct.cpp
 	"registers.h"
 	<iostream>
+
+1396568625 source:c:\users\noah\documents\programming\mips-i\src\sdfhj.cpp
+	"sdfhj.h"
+
+1396568625 c:\users\noah\documents\programming\mips-i\include\sdfhj.h
 
