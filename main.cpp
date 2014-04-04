@@ -1,23 +1,14 @@
 #include <iostream>
 #include <windows.h>
 #include "registers.h"
+#include "logic.h"
+#include "regvals.h"
 
 using namespace std;
 
 //general vars
 int n = 0;
 int x = 0;
-int temp = 0;
-
-/*
-//declare registers
-bool pipe[8] = {false};
-bool imm[16] = {false};
-bool rsrc1[8] = {false};
-bool rsrc2[8] = {false};
-bool rdest[8] = {false};
-bool lo[8] = {false};
-bool hi[8] = {false};*/
 
 //declare zeroed memory bank
 bool memory [256][256];
@@ -32,25 +23,6 @@ int int_address_r1 = 0;
 int int_address_r2 = 0;
 
 Registers reg;
-
-void regvals(){
-    cout << endl << "\tPipe: \t\t";
-    for(n=0;n<8;n++){cout << reg.pipe[n];}
-    cout << endl << "\tImm: \t";
-    for(n=0;n<16;n++){cout << reg.imm[n];}
-    cout << endl << "\tRsrc1: \t\t";
-    for(n=0;n<8;n++){cout << reg.rsrc1[n];}
-    cout << endl << "\tRsrc2: \t\t";
-    for(n=0;n<8;n++){cout << reg.rsrc2[n];}
-    cout << endl << "\tRdest: \t\t";
-    for(n=0;n<8;n++){cout << reg.rdest[n];}
-    cout << endl << "\tHi: \t\t";
-    for(n=0;n<8;n++){cout << reg.hi[n];}
-    cout << endl << "\tLo: \t\t";
-    for(n=0;n<8;n++){cout << reg.lo[n];}
-    cout << endl;
-    Sleep (500);
-}
 
 void op_and(){
     cout << endl <<  "OP      REGISTER        VALUE" << endl << "------  --------        --------";

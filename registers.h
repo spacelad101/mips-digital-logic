@@ -12,6 +12,4 @@ class Registers{
         bool lo[8];
         bool hi[8];
 };
-
-int construct();
 #endif

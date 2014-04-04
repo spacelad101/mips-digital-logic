@@ -1,6 +1,5 @@
 #include "registers.h"
 #include <iostream>
-using namespace std;
 
 Registers::Registers(){
     for(int n=0;n<8;n++){pipe[n]=false;}
