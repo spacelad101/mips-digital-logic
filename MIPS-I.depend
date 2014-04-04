@@ -2,21 +2,22 @@
 1395501137 source:c:\users\noah\documents\programming\double dabble implementation\mips-i\main.cpp
 	<iostream>
 
-1396570446 source:c:\users\noah\documents\programming\mips-i\main.cpp
+1396571874 source:c:\users\noah\documents\programming\mips-i\main.cpp
 	<iostream>
 	<windows.h>
 	"registers.h"
 	"logic.h"
-	"regvals.h"
 
-1396570140 c:\users\noah\documents\programming\mips-i\regvals.h
+1396571496 c:\users\noah\documents\programming\mips-i\regvals.h
 
 1396555984 source:c:\users\noah\documents\programming\mips-i\regvals.cpp
 	<iostream>
 	<windows.h>
 	"registers.h"
 
-1396570348 c:\users\noah\documents\programming\mips-i\registers.h
+1396571833 c:\users\noah\documents\programming\mips-i\registers.h
+	<iostream>
+	<windows.h>
 
 1396570341 source:c:\users\noah\documents\programming\mips-i\construct.cpp
 	"registers.h"

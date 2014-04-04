@@ -2,7 +2,6 @@
 #include <windows.h>
 #include "registers.h"
 #include "logic.h"
-#include "regvals.h"
 
 using namespace std;
 
@@ -34,7 +33,7 @@ void op_and(){
             reg.rdest[n] = false;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_andi(){
@@ -47,7 +46,7 @@ void op_andi(){
             reg.rdest[n] = false;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_nand(){
@@ -60,7 +59,7 @@ void op_nand(){
             reg.rdest[n] = false;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_nandi(){
@@ -73,7 +72,7 @@ void op_nandi(){
             reg.rdest[n] = false;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_or(){
@@ -86,7 +85,7 @@ void op_or(){
             reg.rdest[n] = false;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_ori(){
@@ -99,7 +98,7 @@ void op_ori(){
             reg.rdest[n] = false;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_nor(){
@@ -112,7 +111,7 @@ void op_nor(){
             reg.rdest[n] = true;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_nori(){
@@ -125,7 +124,7 @@ void op_nori(){
             reg.rdest[n] = true;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_xor(){
@@ -138,7 +137,7 @@ void op_xor(){
             reg.rdest[n] = false;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_xori(){
@@ -151,7 +150,7 @@ void op_xori(){
             reg.rdest[n] = false;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_xnor(){
@@ -164,7 +163,7 @@ void op_xnor(){
             reg.rdest[n] = true;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 void op_xnori(){
@@ -177,7 +176,7 @@ void op_xnori(){
             reg.rdest[n] = true;
         }
     }
-    regvals();
+    reg.regvals();
 }
 
 int main(){
