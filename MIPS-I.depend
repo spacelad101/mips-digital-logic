@@ -15,11 +15,11 @@
 	<windows.h>
 	"registers.h"
 
-1396571833 c:\users\noah\documents\programming\mips-i\registers.h
+1396669564 c:\users\noah\documents\programming\mips-i\registers.h
 	<iostream>
 	<windows.h>
 
-1396570341 source:c:\users\noah\documents\programming\mips-i\construct.cpp
+1396669113 source:c:\users\noah\documents\programming\mips-i\construct.cpp
 	"registers.h"
 	<iostream>
 

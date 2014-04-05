@@ -34,6 +34,7 @@ void op_and(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_andi(){
@@ -47,6 +48,7 @@ void op_andi(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_nand(){
@@ -60,6 +62,7 @@ void op_nand(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_nandi(){
@@ -73,6 +76,7 @@ void op_nandi(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_or(){
@@ -86,6 +90,7 @@ void op_or(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_ori(){
@@ -99,6 +104,7 @@ void op_ori(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_nor(){
@@ -112,6 +118,7 @@ void op_nor(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_nori(){
@@ -122,9 +129,10 @@ void op_nori(){
             reg.rdest[n] = false;
         } else{
             reg.rdest[n] = true;
-        }
+        }reg.Update();
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_xor(){
@@ -138,6 +146,7 @@ void op_xor(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_xori(){
@@ -151,6 +160,7 @@ void op_xori(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_xnor(){
@@ -164,6 +174,7 @@ void op_xnor(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 void op_xnori(){
@@ -177,6 +188,7 @@ void op_xnori(){
         }
     }
     reg.regvals();
+    reg.Update();
 }
 
 int main(){

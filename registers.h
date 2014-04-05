@@ -31,7 +31,8 @@ class Registers{
             cout << endl << "\tLo: \t\t";
             for(n1=0;n1<8;n1++){cout << lo[n1];}
             cout << endl;
-            Sleep (500);
+            Sleep (250);
         }
+        void Update();
 };
 #endif
