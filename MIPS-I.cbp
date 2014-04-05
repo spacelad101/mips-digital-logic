@@ -34,7 +34,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="arithmetic.cpp" />
+		<Unit filename="arithmetic.h" />
 		<Unit filename="construct.cpp" />
+		<Unit filename="logic.cpp" />
 		<Unit filename="logic.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="registers.h" />

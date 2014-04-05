@@ -2,11 +2,12 @@
 1395501137 source:c:\users\noah\documents\programming\double dabble implementation\mips-i\main.cpp
 	<iostream>
 
-1396571874 source:c:\users\noah\documents\programming\mips-i\main.cpp
+1396740183 source:c:\users\noah\documents\programming\mips-i\main.cpp
 	<iostream>
 	<windows.h>
 	"registers.h"
 	"logic.h"
+	"arithmetic.h"
 
 1396571496 c:\users\noah\documents\programming\mips-i\regvals.h
 
@@ -29,4 +30,18 @@
 1396568625 c:\users\noah\documents\programming\mips-i\include\sdfhj.h
 
 1396569994 c:\users\noah\documents\programming\mips-i\logic.h
+
+1396721847 source:c:\users\noah\documents\programming\mips-i\logic.cpp
+	<iostream>
+	<windows.h>
+	"registers.h"
+	"logic.h"
+
+1396741421 source:c:\users\noah\documents\programming\mips-i\arithmetic.cpp
+	<iostream>
+	<windows.h>
+	"registers.h"
+	"arithmetic.h"
+
+1396737492 c:\users\noah\documents\programming\mips-i\arithmetic.h
 
