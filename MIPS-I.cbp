@@ -40,6 +40,8 @@
 		<Unit filename="logic.cpp" />
 		<Unit filename="logic.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="misc.cpp" />
+		<Unit filename="misc.h" />
 		<Unit filename="registers.h" />
 		<Extensions>
 			<code_completion />

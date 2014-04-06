@@ -3,6 +3,7 @@
 #include "registers.h"
 #include "logic.h"
 #include "arithmetic.h"
+#include "misc.h"
 
 using namespace std;
 
@@ -47,6 +48,7 @@ int main(){
     cout << endl << "/* MIPS-I Emulator Started /*" << endl << "-----------------------------" << endl << "-----------------------------" << endl;
     while(true){
         //when all of the operations are finished, run everything in here
+        cout << "Nothing left to do!";
         return false;
     }
     return 0;
