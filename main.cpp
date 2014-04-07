@@ -1,11 +1,27 @@
 #include <iostream>
-#include <windows.h>
 #include "registers.h"
 #include "logic.h"
 #include "arithmetic.h"
 #include "misc.h"
 
 using namespace std;
+
+#ifdef WIN32
+#include <windows.h>
+void pause_ms(unsigned milliseconds) {
+    Sleep(milliseconds);
+}
+#elif defined(unix)
+#include <unistd.h>
+void pause_ms(unsigned milliseconds) {
+    usleep(milliseconds * 1000);
+}
+#else
+void pause_ms(unsigned milliseconds) {
+    clock_t start = clock();
+    while(start + (milliseconds / 1000.0 * CLOCKS_PER_SEC) < clock()) {}
+}
+#endif
 
 //declare zeroed memory bank
 bool memory [256][256];
@@ -44,7 +60,7 @@ int main(){
     cout << endl << "        \\::/    /               \\::/    /                                       \\::/    /        ";
     cout << endl << "         \\/____/                 \\/____/                                         \\/____/         ";
     cout << endl << "                                                                                                 " << endl;
-    Sleep (1000);
+    pause_ms (1000);
     cout << endl << "/* MIPS-I Emulator Started /*" << endl << "-----------------------------" << endl << "-----------------------------" << endl;
     while(true){
         //when all of the operations are finished, run everything in here

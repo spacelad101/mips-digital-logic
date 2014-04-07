@@ -1,7 +1,6 @@
 #ifndef REGISTERS_H
 #define REGISTERS_H
 #include <iostream>
-#include <windows.h>
 using namespace std;
 class Registers{
     public:
@@ -31,7 +30,8 @@ class Registers{
             cout << endl << "\tLo: \t\t";
             for(n1=0;n1<8;n1++){cout << lo[n1];}
             cout << endl;
-            Sleep (250);
+	    extern void pause_ms(unsigned int);
+            pause_ms (250);
         }
         void Update();
 };
