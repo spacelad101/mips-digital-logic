@@ -88,8 +88,18 @@ def opcodeConvertion():
 def toBinaryConverter():
         numOfSecondaryArrays = int(len(commands))  # holds number 
         for c in range(0, numOfSecondaryArrays):  # for the number of secondary arrays in commands
-                numOfConversions =  int(len(commands[c]))  # find the number of commands in the second dimension array
+                if commands[c][0] == 'j' or commands[c][0] == 'jal':  # If encoder is a jump instruction
+                        #print('J or JAL found. Checking')
+                        numOfConversions = int(len(commands[c]))  # find the number of commands in the second dimension array
+                        for sc in range(0, numOfConversions):  # runs for the number of commands in the second dimension array
+                                #print('checking')
+                                index = commands[c][sc].find('0x')  # search for hex value formatting
+                                if index == -1:  # if none found display error message and end script
+                                        print('Bad "' + commands[c][0] + '" formatting, on line ' + str(c + 1) + '. "' + commands[c][sc][:3] + '" is an invalid option. MUST BE CONTAIN A HEX VALUE!')  # Error message
+                                        sys.exit(0)  # End Script
+                numOfConversions = int(len(commands[c]))  # find the number of commands in the second dimension array
                 for sc in range(0, numOfConversions):  # runs for the number of commands in the second dimension array
+
                         index = commands[c][sc].find('$')  # search for '$' and hold the place value of the '$' in the current string, within the second dimension array
                         if index == 0:  # if a '$' was found and is at the beginning of the commands (to avoid conflict with hex value commands)
                                 commands[c][sc] = commands[c][sc][index +1:]  # remove the '$' formatting
@@ -107,7 +117,7 @@ def toBinaryConverter():
                                                 numOfHexChars = int(len(commands[c][sc]))  # get the number of string chars in the secondary command
                                                 
                                                 for hv in range(0, numOfHexChars):  # run loop for the number of single hex value chars in the command
-                                                        tmpString  = commands[c][sc][hv]   # the tmpString holds the current single hex value to be converted
+                                                        tmpString = commands[c][sc][hv]   # the tmpString holds the current single hex value to be converted
                                                         tmpStringConv += hexval[tmpString]  # Add the newly converted hex value to the rest of the converted values
 
                                                 commands[c][sc] = tmpStringConv  # add the converted command to the array
@@ -125,7 +135,7 @@ def toBinaryConverter():
                                                                 commands[c][sc] = tmpStringConv  # add the converted command to the array
                                                                 # print(commands)  # prints the newly converted commands
                                                         else:  # if sll or srl encoder's hex value does not have the proper format. Post error message and end the script
-                                                                print('Bad "' + commands[c][0] + '" formatting, on line ' + str(c + 1) + '. "' + commands[c][sc][0] + '" is an invaild option. MUST BE A "0" or "1"!')  # Error message
+                                                                print('Bad "' + commands[c][0] + '" formatting, on line ' + str(c + 1) + '. "' + commands[c][sc][0] + '" is an invalid option. MUST BE A "0" or "1"!')  # Error message
                                                                 sys.exit(0)  # End Script
                                         elif len(commands[c][sc]) == 8:  # check to see if hex value is in '****($*)' format
                                                 if commands[c][sc][4] == '(' and commands[c][sc][5] == '$' and commands[c][sc][7] == ')':  # register formatting found

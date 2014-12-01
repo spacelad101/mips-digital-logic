@@ -3,3 +3,4 @@ addi $2,$4,0xffff
 mult $2,$1
 lw $4,0xFFFF($1)
 sll $1,$2,0x1F
+jal $1
