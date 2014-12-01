@@ -1,6 +1,6 @@
 add $1,$2,$3
 addi $2,$4,0xffff
 mult $2,$1
-lw $4,0xFFFF($1)
+lw $4,0xFFFF($1) #this is a specail case.
 sll $1,$2,0x1F
-jal $1
+jal 0xff13
