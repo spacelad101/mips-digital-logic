@@ -18,7 +18,6 @@ reg_ali =
 's6':'$22','s7':'$23','t8':'$24','t9':'$25','k0':'$26','k1':'$27','$kt0':'$26','$kt1':'$27',
 'gp':'$28','$gp':'$28','sp':'$29','$sp':'$29','fp':'$30','$fp':'$30','ra':'$31'}
 
-
 def spliceFileInput(fileInput): #find comma placement within the current line of the file
         commaPlace = [] #Reset comma placement array
         spacePlace = []
