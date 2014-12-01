@@ -136,6 +136,6 @@ opcodeConvertion() #Start the opcode conversion for the encoder commands from as
 
 print(commands)
 
-#Default rule - hexVaule must be 4 long after '0x'
-#rule #1 - sll & srl must have a hexValue that starts with 0x1* or 0x0*, where * stands for one more single hex value
+#Default rule - hexVaule must be 4 long after '0x'  (implemented)
+#rule #1 - sll & srl must have a hexValue that starts with 0x1* or 0x0*, where * stands for one more single hex value (implemented)
 #rule #2 - j & jal must have a hexValue (check this before doing conversions)
