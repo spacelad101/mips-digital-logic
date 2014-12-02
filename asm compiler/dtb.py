@@ -85,4 +85,4 @@ if good_num is True:  # If good_num == True, determine how to create the binary 
         binary_arr = [0] * exponent  # make the entire array that holds the binary number 0 also.
 
 for x in reversed(range(0, exponent)):
-    print(binary_arr[x])  # Print the array, all characters on the same line without stupid syntax included in the print.
+    print(binary_arr[x], end='')  # Print the array, all characters on the same line without stupid syntax included in the print.
