@@ -80,10 +80,6 @@ def splice_file_input(file_input):  # find comma placement within the current li
         commands.append(tmp_array)  # add the tmp_array to the master array, as a second dimension (representing a new line)
         return
 
-with open(file_name, 'r') as asmFile:  # Open file
-        for line in asmFile.read().splitlines():  # For lines in rmDict.txt file pull string data
-                splice_file_input(line)  # pull the commands out of the input
-
 
 # first part 'encoder' gets converted into binary via the 'opcode' dict.
 def opcode_conversion():
@@ -150,6 +146,10 @@ def to_binary_converter():
                                                         commands[c][sc] = tmp_string_conv + tmp_string_reg  # add the converted command to the array
                                                         # print(commands)  # prints the newly converted commands
         return
+
+with open(file_name, 'r') as asmFile:  # Open file
+        for line in asmFile.read().splitlines():  # For lines in rmDict.txt file pull string data
+                splice_file_input(line)  # pull the commands out of the input
 
 to_binary_converter()  # Start the hex value conversion process
 opcode_conversion()  # Start the opcode conversion for the encoder commands from ascii to binary
