@@ -1,4 +1,6 @@
 import sys
+import os
+import dtb
 
 file_name = str(input("Name of file to compile? (*.txt): "))
 if file_name == '':
