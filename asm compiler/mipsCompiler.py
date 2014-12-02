@@ -149,7 +149,7 @@ def to_binary_converter():
         return
 
 with open(file_name, 'r') as asmFile:  # Open file
-        for line in asmFile.read().splitlines():  # For lines in rmDict.txt file pull string data
+        for line in asmFile.read().splitlines():  # For lines in ams file pull string data
                 index = line.find('#')  # check for comment formatting
                 if index != 0:  # if comment formatting not found at the beginning of the line
                     splice_file_input(line)  # pull the commands out of the input
