@@ -1,7 +1,8 @@
 import sys
 
 file_name = str(input("Name of file to compile? (*.txt): "))
-file_name = "samples\example.txt"  # For testing purposes, making runs faster to test.
+if file_name == '':
+    file_name = "samples\example.txt"  # For testing purposes, making runs faster to test.
 commands = []   # Master Command array, will hold arrays or commands
 
 # Defines registers $0 - $31 as corresponding binary values
@@ -149,7 +150,9 @@ def to_binary_converter():
 
 with open(file_name, 'r') as asmFile:  # Open file
         for line in asmFile.read().splitlines():  # For lines in rmDict.txt file pull string data
-                splice_file_input(line)  # pull the commands out of the input
+                index = line.find('#')  # check for comment formatting
+                if index != 0:  # if comment formatting not found at the beginning of the line
+                    splice_file_input(line)  # pull the commands out of the input
 
 to_binary_converter()  # Start the hex value conversion process
 opcode_conversion()  # Start the opcode conversion for the encoder commands from ascii to binary
