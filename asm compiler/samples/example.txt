@@ -1,7 +1,8 @@
 add $1,$2,$3
-addi $2,$4,16
+addi $2,$4,57
 mult $2,$1
 lw $4,5($1) #this is a specail case.
 sll $1,$2,11
 jal 26
+bgez $3,30
 #
