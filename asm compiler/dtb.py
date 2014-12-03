@@ -96,4 +96,4 @@ def convert(bit_length, number):
 		bin_str += str(binary_arr[x])
 	return bin_str
 
-print(convert(32, 32))  # for testing purposes
+#print(convert(32, 32))  # for testing purposes

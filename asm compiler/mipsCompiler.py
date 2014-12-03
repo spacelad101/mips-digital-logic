@@ -1,6 +1,6 @@
 import sys
-import os
-import dtb
+from dtb import convert
+print(convert(32,32))
 
 file_name = str(input("Name of file to compile? (*.txt): "))
 if file_name == '':
