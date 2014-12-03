@@ -1,6 +1,7 @@
 add $1,$2,$3
-addi $2,$4,0xffff
+addi $2,$4,16
 mult $2,$1
-lw $4,0xFFFF($1) #this is a specail case.
-sll $1,$2,0x1F
-jal 0xff13
+lw $4,5($1) #this is a specail case.
+sll $1,$2,11
+jal 26
+#
