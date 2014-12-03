@@ -1,9 +1,12 @@
 import sys
 from dtb import convert
+from createExamples import create_asm
+
+create_asm(int(input("Number of examples to test?: ")))
 
 file_name = str(input("Name of file to compile? (*.txt): "))
 if file_name == '':
-	file_name = "samples\example.txt"  # For testing purposes, making runs faster to test.
+	file_name = "sample\examples.txt"  # For testing purposes, making runs faster to test.
 	print('No file chosen, reverting to default. (samples\examples.txt)')
 commands = []  # Master Command array, will hold arrays or commands
 
@@ -19,14 +22,14 @@ opcode = {'addi': '000010', 'addu': '000011', 'addiu': '000100', 'divu': '000110
 		  'bgezal': '100000', 'bgtz': '100001', 'blez': '100010', 'bltzal': '100011', 'bltz': '100100', 'bne': '100101', 'jal': '100111', 'jr': '101000', 'j': '100110', 'lb': '101001', 'lh': '101010', 'lw': '101011', 'sb': '101100', 'sh': '101101', 'sw': '101110',
 		  'mfhi': '101111', 'mflo': '110000', 'mthi': '110001', 'mtlo': '110010', 'noop': '000000', 'add': '000001', 'bgez': '011111', 'slt': '011010', 'sra': '110011', 'sllv': '110100', 'srlv': '110101', 'srav': '110110'}
 # Defines syntax for operation codes
-opcode_syntax = {'addi': 'dsC', 'addu': 'dst', 'addiu': 'dsC', 'divu': 'st', 'div': 'st', 'multu': 'st', 'mult': 'st', 'subu': 'dst', 'sub': 'dst', 'andi': 'dsC', 'and': 'dst', 'nandi': 'dsC', 'nand': 'dst', 'ori': 'dst', 'or': 'dst', 'nori': 'dsC', 'nor': 'dst',
+opcode_syntax = {'addi': 'dsC', 'addu': 'dst', 'addiu': 'dsC', 'divu': 'st', 'div': 'st', 'multu': 'st', 'mult': 'st', 'subu': 'dst', 'sub': 'dst', 'andi': 'dsC', 'and': 'dst', 'nandi': 'dsC', 'nand': 'dst', 'ori': 'dsC', 'or': 'dst', 'nori': 'dsC', 'nor': 'dst',
 				 'xori': 'dsC', 'xor': 'dst', 'xnori': 'dsC', 'xnor': 'dst', 'sll': 'dsH', 'srl': 'dsH', 'lui': 'dC', 'slti': 'dsC', 'sltu': 'dst', 'sltiu': 'dsC', 'beq': 'stC', 'bgezal': 'sC-', 'bgtz': 'sC-', 'blez': 'sC-', 'bltzal': 'sC-', 'bltz': 'sC-', 'bne': 'stC',
 				 'jal': 'C', 'jr': 's', 'j': 'C', 'lb': 'dCs', 'lh': 'dCs', 'lw': 'dCs', 'sb': 'tCs', 'sh': 'tCs', 'sw': 'tCs', 'mfhi': 'd', 'mflo': 'd', 'mthi': 's', 'mtlo': 's', 'noop': '', 'add': 'dst', 'bgez': 'sC-', 'slt': 'dst', 'sra': 'dsH', 'sllv': 'dts',
 				 'srlv': 'dts', 'srav': 'dts'}
 # Defines encoding for operation codes
 opcode_encoding = {'addi': 'sdC', 'addu': 'std', 'addiu': 'sdC', 'divu': 'st', 'div': 'st', 'multu': 'st', 'mult': 'st', 'subu': 'std', 'sub': 'std', 'andi': 'sdC', 'and': 'std', 'nandi': 'sdC', 'nand': 'std', 'ori': 'sdC', 'or': 'std', 'nori': 'sdC', 'nor': 'std',
 				   'xori': 'sdC', 'xor': 'std', 'xnori': 'sdC', 'xnor': 'std', 'sll': 'sdH', 'srl': 'sdH', 'lui': 'd-C', 'slti': 'sdC', 'sltu': 'std', 'sltiu': 'sdC', 'beq': 'stC', 'bgezal': 's-C', 'bgtz': 's-C', 'blez': 's-C', 'bltzal': 's-C', 'bltz': 's-C',
-				   'bne': 'stC', 'jal': 'C', 'jr': 's', 'j': 'C', 'lb': 'sdC', 'lh': 'sdC', 'lw': 'sdC', 'sb': 'stC', 'sh': 'stC', 'sw': 'stC', 'mfhi': 'd', 'mflo': 'd', 'mthi': 's', 'mtlo': 's', 'noop': '-', 'add': 'std', 'bgez': 's-C', 'slt': 'std', 'sra': 'sdH',
+				   'bne': 'stC', 'jal': 'C', 'jr': 's', 'j': 'C', 'lb': 'sdC', 'lh': 'sdC', 'lw': 'sdC', 'sb': 'stC', 'sh': 'stC', 'sw': 'stC', 'mfhi': 'd', 'mflo': 'd', 'mthi': 's', 'mtlo': 's', 'noop': '', 'add': 'std', 'bgez': 's-C', 'slt': 'std', 'sra': 'sdH',
 				   'sllv': 'std', 'srlv': 'std', 'srav': 'std'}
 # Defines register aliases
 reg_ali = {'$at': '$1', 'v0': '$2', 'v1': '$3', 'a0': '$4', 'a1': '$5', 'a2': '$6', 'a3': '$7', 't0': '$8', 't1': '$9', 't2': '$10', 't3': '$11', 't4': '$12', 't5': '$13', 't6': '$14', 't7': '$15', 's0': '$16', 's1': '$17', 's2': '$18', 's3': '$19', 's4': '$20',
@@ -114,6 +117,9 @@ def to_binary_converter():
 		tmp_array = []
 
 		for sc in range(0, len(input_syntax)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
+			if input_syntax[sc:sc+1] == '':  # noop instruction exception
+				tmp_dict[input_syntax[sc:sc+1]] = '000000000000000000000000000000000'  # add to the dict with the key ''
+				commands[c].append(tmp_dict[input_syntax[sc:sc+1]])  # add '00000' to the array
 			if input_syntax[sc:sc+1] == '-':  # if - found, then it won't be in the array and we have to create it
 				tmp_dict[input_syntax[sc:sc+1]] = '00000'  # add to the dict with the key '-'
 				commands[c].append(tmp_dict[input_syntax[sc:sc+1]])  # add '00000' to the array
@@ -121,6 +127,10 @@ def to_binary_converter():
 				tmp_dict[input_syntax[sc:sc+1]] = commands[c][sc+1]  # add a syntax key to each of the commands
 
 		for sc in range(0, len(output_syntax)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
+			if output_syntax[sc:sc+1] == '-':  # if - found, then it won't be in the array and we have to create it
+				tmp_array.append('00000')  # add to the array
+				commands[c].append('00000')  # add to the command line array
+			else:
 				tmp_array.append(tmp_dict[output_syntax[sc:sc+1]])  # add the commands into the right order, so after processing the commands come out as the syntax.
 
 		for sc in range(0, len(tmp_array)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
@@ -133,7 +143,7 @@ def to_binary_converter():
 			else:  # if not a register value ($*), assume it's a decimal number
 				if tmp_array[sc].isdigit() and tmp_array[sc] != '00000':  # check if the command is indeed only digits
 					# C value default bit length is 16
-					if output_syntax[sc:sc+1] == 'C':
+					if output_syntax[sc:sc+1] == 'C' and len(tmp_array) != 1:
 						current_bit_length = 16
 					# C value special bit length is 26 (in this case, it will be the only value besides the instruction)
 					elif len(tmp_array) == 1:
@@ -147,10 +157,8 @@ def to_binary_converter():
 						sys.exit(0) # End Script
 					tmp_array[sc] =  convert(current_bit_length, int(tmp_array[sc]))
 
-
 		for sc in range(0, len(tmp_array)):
 			commands[c][sc + 1] = tmp_array[sc]
-
 	return
 
 def condense_line():
@@ -173,16 +181,20 @@ with open(file_name, 'r') as asmFile:  # Open file
 			splice_file_input(line)  # pull the commands out of the input
 
 print('Original Input: ', end='')
-print(commands)
+for c in range(0, len(commands)):
+	print(commands[c], end='')
 to_binary_converter()  # Start the hex value conversion process
 print('Registers and Immediate values converted: ', end='')
-print(commands)
+for c in range(0, len(commands)):
+	print(commands[c], end='')
 opcode_conversion()  # Start the opcode conversion for the encoder commands from ascii to binary
 print('Instruction codes converted: ', end='')
-print(commands)
+for c in range(0, len(commands)):
+	print(commands[c], end='')
 condense_line()  # condense the array of commands in a single string
 print('Condensed into 32 bit strings: ', end='')
-print(commands)
+for c in range(0, len(commands)):
+	print(commands[c], end='')
 
 # for c in range(0, len(commands)):  # check bit lengths for each of the lines of commands
 # 	total_bit_length = 0
