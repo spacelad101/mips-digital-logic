@@ -128,14 +128,17 @@ def to_binary_converter():
 
 			else:  # if not a register value ($*), assume it's a decimal number
 				if tmp_array[sc].isdigit():  # check if the command is indeed only digits
-					current_bit_length = 0  # track the bit length
-					for b in range(0, len(tmp_array) - 1):
-						current_bit_length += len(tmp_array[b])  # find current bit length
-						print(current_bit_length)
-					if current_bit_length == 0:
-						tmp_array[sc] =  convert(26, int(tmp_array[sc]))
-					else:
-						tmp_array[sc] =  convert(current_bit_length, int(tmp_array[sc]))
+					# C value default bit length is 16
+					if output_syntax[sc:sc+1] == 'C':
+						current_bit_length = 16
+					# C value special bit length is 26 (in this case, it will be the only value besides the instruction)
+					if len(tmp_array) == 1:
+						current_bit_length = 26
+					# H value only bit length is 5
+					if output_syntax[sc:sc+1] == 'H':
+						current_bit_length = 5
+
+					tmp_array[sc] =  convert(current_bit_length, int(tmp_array[sc]))
 
 		for sc in range(0, len(tmp_array)):
 			commands[c][sc + 1] = tmp_array[sc]
