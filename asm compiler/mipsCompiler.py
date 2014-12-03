@@ -4,6 +4,7 @@ from dtb import convert
 file_name = str(input("Name of file to compile? (*.txt): "))
 if file_name == '':
 	file_name = "samples\example.txt"  # For testing purposes, making runs faster to test.
+	print('No file chosen, reverting to default. (samples\examples.txt)')
 commands = []  # Master Command array, will hold arrays or commands
 
 # Defines registers $0 - $31 as corresponding binary values
@@ -168,14 +169,19 @@ def condense_line():
 with open(file_name, 'r') as asmFile:  # Open file
 	for line in asmFile.read().splitlines():  # For lines in ams file pull string data
 		index = line.find('#')  # check for comment formatting
-		if index != 0:  # if comment formatting not found at the beginning of the line
+		if index != 0 and line != '':  # if comment formatting not found at the beginning of the line
 			splice_file_input(line)  # pull the commands out of the input
+
+print('Original Input: ', end='')
 print(commands)
 to_binary_converter()  # Start the hex value conversion process
+print('Registers and Immediate values converted: ', end='')
 print(commands)
 opcode_conversion()  # Start the opcode conversion for the encoder commands from ascii to binary
+print('Instruction codes converted: ', end='')
 print(commands)
 condense_line()  # condense the array of commands in a single string
+print('Condensed into 32 bit strings: ', end='')
 print(commands)
 
 # for c in range(0, len(commands)):  # check bit lengths for each of the lines of commands
