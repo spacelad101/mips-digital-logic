@@ -1,14 +1,10 @@
-#This shit that isnt in a function is temp debug shit
-bl = int(input("Enter a bit length: "))  # Get a bit length
-numb = int(input("Enter a number: "))  # Get a number
-bin_result = convert(bl,numb)
-print(bin_result)
+global binary_arr
 
 """
 This adds one to the binary number stored in binary_arr.
 This is to be used to sign a 2's compliment binary number.
 """
-def add_one():
+def add_one(exponent):
     carry = False
     for x in range(0, exponent):
         if (carry is False) & (binary_arr[x] == 0):
@@ -33,7 +29,7 @@ subtract if smaller inserting either a 1 or a 0. Keep repeating with the next mo
 bit until there is nothing left to check (ie. until it has reached 2^0
 """
 
-def greater_than_zero(gtz):
+def greater_than_zero(gtz,exponent):
     for x in reversed(range(0, exponent)):
         if gtz >= 2 ** x:
             binary_arr[x] = 1
@@ -48,22 +44,27 @@ If the number is less than zero, convert it back into a positive number (x*-1) a
 flip all of the bits and add 1 to the binary number to sign the now negative binary number
 in two's compliment.
 """
-def less_than_zero(ltz):
-    greater_than_zero(ltz * -1)
+def less_than_zero(ltz,exponent):
+    greater_than_zero((ltz * -1),exponent)
     for x in reversed(range(0, exponent)):
         if binary_arr[x] == 1:
             binary_arr[x] = 0
         elif binary_arr[x] == 0:
             binary_arr[x] = 1
-    add_one()
+    add_one(exponent)
     return
 
+"""
+Pass convert a bit length and number to get the resulting binary number.
+If number is not in the acceptable range for the specified bit length,
+it will return "badnum"
+"""
 def convert(bitlength,number):
 	exponent = bitlength
-	maxint = 2 ** exponent  # Calculates the maximum integer for the specified bit length to determine if good_num should be true
 	good_num = False  # No number inputted yet, therefor false
-
+	global binary_arr
 	binary_arr = [None] * exponent  # Create an array the size of the bit length (variable: exponent)
+	maxint = 2 ** exponent  # Calculates the maximum integer for the specified bit length to determine if good_num should be true
 
 	if (number < maxint) & (number > (maxint / -2)):
    		good_num = True
@@ -72,12 +73,15 @@ def convert(bitlength,number):
 
 	if good_num is True:  # If good_num == True, determine how to create the binary number.
 		if number > 0:  # If the base 10 number is > 0, call the function to create a positive unsigned binary number
-			greater_than_zero(number)  # Pass the base 10 number to the function that does this
+			greater_than_zero(number,exponent)  # Pass the base 10 number to the function that does this
 		elif number < 0:  # If the base 10 number is < 0, call the function to create a negative signed binary number
-			less_than_zero(number)  # Pass the base 10 number to the function that does this
+			less_than_zero(number,exponent)  # Pass the base 10 number to the function that does this
 		elif number == 0:  # If the number is 0...
 			binary_arr = [0] * exponent  # make the entire array that holds the binary number 0 also.
 
+	#for x in reversed(range(0, exponent)):
+		#print(binary_arr[x], end='')  # Print the array, all characters on the same line without stupid syntax included in the print.
+	bin_str = ""
 	for x in reversed(range(0, exponent)):
-		print(binary_arr[x], end='')  # Print the array, all characters on the same line without stupid syntax included in the print.
-	return(binary_arr)
+		bin_str = bin_str + str(binary_arr[x])
+	return(bin_str)
