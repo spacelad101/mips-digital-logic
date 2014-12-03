@@ -193,3 +193,5 @@ print(commands)
 # Default rule - hex value must be 4 long after '0x'  (implemented)
 # rule  # 1 - sll & srl must have a hexValue that starts with 0x1* or 0x0*, where * stands for one more single hex value (implemented)
 # rule  # 2 - j & jal must have a hexValue (check this before doing conversions)
+
+#output file name *_bin
