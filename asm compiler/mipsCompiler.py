@@ -25,6 +25,26 @@ opcode = {'addi': '000010', 'addu': '000011', 'addiu': '000100', 'divu': '000110
           'lh': '101010', 'lw': '101011', 'sb': '101100', 'sh': '101101', 'sw': '101110', 'mfhi': '101111', 'mflo': '110000',
           'mthi': '110001', 'mtlo': '110010', 'noop': '000000', 'add': '000001', 'bgez': '011111', 'slt': '011010', 'sra': '110011',
           'sllv': '110100', 'srlv': '110101', 'srav': '110110'}
+# Defines syntax for operation codes
+opcode_syntax = {'addi': 'dsC', 'addu': 'dst', 'addiu': 'dsC', 'divu': 'st', 'div': 'st', 'multu': 'st',
+          'mult': 'st', 'subu': 'dst', 'sub': 'dst', 'andi': 'dsC', 'and': 'dst', 'nandi': 'dsC',
+          'nand': 'dst', 'ori': 'dst', 'or': 'dst', 'nori': 'dsC', 'nor': 'dst', 'xori': 'dsC', 'xor': 'dst',
+          'xnori': 'dsC', 'xnor': 'dst', 'sll': 'dsH', 'srl': 'dsH', 'lui': 'dC', 'slti': 'dsC',
+          'sltu': 'dst', 'sltiu': 'dsC', 'beq': 'stC', 'bgezal': 'sC', 'bgtz': 'sC', 'blez': 'sC',
+          'bltzal': 'sC', 'bltz': 'sC', 'bne': 'stC', 'jal': 'C', 'jr': 's', 'j': 'C', 'lb': 'dCs',
+          'lh': 'dCs', 'lw': 'dCs', 'sb': 'tCs', 'sh': 'tCs', 'sw': 'tCs', 'mfhi': 'd', 'mflo': 'd',
+          'mthi': 's', 'mtlo': 's', 'noop': '', 'add': 'dst', 'bgez': 'sC', 'slt': 'dst', 'sra': 'dsH',
+          'sllv': 'dts', 'srlv': 'dts', 'srav': 'dts'}
+# Defines encoding for operation codes
+opcode_encoding = {'addi': 'sdC', 'addu': 'std', 'addiu': 'sdC', 'divu': 'st', 'div': 'st', 'multu': 'st',
+          'mult': 'st', 'subu': 'std', 'sub': 'std', 'andi': 'sdC', 'and': 'std', 'nandi': 'sdC',
+          'nand': 'std', 'ori': 'sdC', 'or': 'std', 'nori': 'sdC', 'nor': 'std', 'xori': 'sdC', 'xor': 'std',
+          'xnori': 'sdC', 'xnor': 'std', 'sll': 'sdH', 'srl': 'sdH', 'lui': 'd-C', 'slti': 'sdC',
+          'sltu': 'std', 'sltiu': 'sdC', 'beq': 'stC', 'bgezal': 's-C', 'bgtz': 's-C', 'blez': 's-C',
+          'bltzal': 's-C', 'bltz': 's-C', 'bne': 'stC', 'jal': 'C', 'jr': 's', 'j': 'C', 'lb': 'sdC',
+          'lh': 'sdC', 'lw': 'sdC', 'sb': 'stC', 'sh': 'stC', 'sw': 'stC', 'mfhi': 'd', 'mflo': 'd',
+          'mthi': 's', 'mtlo': 's', 'noop': '-', 'add': 'std', 'bgez': 's-c', 'slt': 'std', 'sra': 'sdH',
+          'sllv': 'std', 'srlv': 'std', 'srav': 'std'}
 # Defines register aliases
 reg_ali = {'$at': '$1', 'v0': '$2', 'v1': '$3', 'a0': '$4', 'a1': '$5', 'a2': '$6', 'a3': '$7',
            't0': '$8', 't1': '$9', 't2': '$10', 't3': '$11', 't4': '$12', 't5': '$13', 't6': '$14',
