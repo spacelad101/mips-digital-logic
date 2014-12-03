@@ -48,7 +48,7 @@ def create_asm(number):
 
 		#print(examples[n])
 
-	with open('sample\examples.txt', 'w+') as asmFile:  # Open file
+	with open('samples\examples.txt', 'w+') as asmFile:  # Open file
 		for c in range(0, len(examples)):
 				asmFile.write(str(examples[c]) + '\n')  # For lines in ams file pull string data
 

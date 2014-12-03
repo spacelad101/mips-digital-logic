@@ -6,7 +6,7 @@ create_asm(int(input("Number of examples to test?: ")))
 
 file_name = str(input("Name of file to compile? (*.txt): "))
 if file_name == '':
-	file_name = "sample\examples.txt"  # For testing purposes, making runs faster to test.
+	file_name = "samples\examples.txt"  # For testing purposes, making runs faster to test.
 	print('No file chosen, reverting to default. (samples\examples.txt)')
 commands = []  # Master Command array, will hold arrays or commands
 
@@ -169,9 +169,13 @@ def condense_line():
 			tmp_string += commands[c][sc]  # add the commands in each position of the second dimensional array into the string
 
 		if len(tmp_string) != 32: #if the string is not a perfect 32 bits long adds '0's to the end until it is
-			while len(tmp_string) < 32:  # while the string isn't 32 bits long
-				tmp_string += '0'  # add zero to the end (this needs to be fixed, this needs to add to the front of the immediate value)
+			while len(tmp_string) != 32:  # while the string isn't 32 bits long
+				if len(tmp_string) < 32:
+					tmp_string += '0'  # add zero to the end (this needs to be fixed, this needs to add to the front of the immediate value)
+				elif len(tmp_string) > 32:
+					tmp_string = tmp_string[:len(tmp_string) - 1]
 		commands[c] = tmp_string  # add the new string in place of the old array
+		print(tmp_string)
 
 
 with open(file_name, 'r') as asmFile:  # Open file
@@ -183,24 +187,30 @@ with open(file_name, 'r') as asmFile:  # Open file
 print('Original Input: ', end='')
 for c in range(0, len(commands)):
 	print(commands[c], end='')
+print()
 to_binary_converter()  # Start the hex value conversion process
 print('Registers and Immediate values converted: ', end='')
 for c in range(0, len(commands)):
 	print(commands[c], end='')
+print()
 opcode_conversion()  # Start the opcode conversion for the encoder commands from ascii to binary
 print('Instruction codes converted: ', end='')
 for c in range(0, len(commands)):
 	print(commands[c], end='')
+print()
 condense_line()  # condense the array of commands in a single string
 print('Condensed into 32 bit strings: ', end='')
 for c in range(0, len(commands)):
-	print(commands[c], end='')
+	print(commands[c])
 
-# for c in range(0, len(commands)):  # check bit lengths for each of the lines of commands
-# 	total_bit_length = 0
-# 	for sc in range(0, len(commands[c])):
-# 		total_bit_length += len(commands[c][sc])
-# 	print(total_bit_length)
+for c in range(0, len(commands)):  # check bit lengths for each of the lines of commands
+	total_bit_length = 0
+	for sc in range(0, len(commands[c])):
+		total_bit_length += len(commands[c][sc])
+	if total_bit_length != 32:
+		print('Error, bad bit length. Check Syntax!')
+		print('Bit length - ', total_bit_length)
+		print('Binary string - ', commands[c])
 
 # Default rule - hex value must be 4 long after '0x'  (implemented)
 # rule  # 1 - sll & srl must have a hexValue that starts with 0x1* or 0x0*, where * stands for one more single hex value (implemented)
