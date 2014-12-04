@@ -1,5 +1,6 @@
 import sys
 from dtb import convert
+sys.path.append('example generation')
 from createExamples import create_asm
 
 create_asm(int(input("Number of examples to test?: ")))
