@@ -150,7 +150,7 @@ def to_binary_converter():
 
 		for len_input_script in range(0, len(tmp_array)):
 			commands[command_arrays][len_input_script + 1] = tmp_array[len_input_script]
-		print('Converting...')
+		print('Converting... ', str(command_arrays + 1), '/', str(len(commands)))
 	return
 
 def condense_line():
@@ -165,7 +165,7 @@ def condense_line():
 				tmp_string += '0'  # add zero to the end, if the string has a immediate value it will already be 32 bits, else fill the end because the rest won't matter
 		commands[c] = tmp_string  # add the new string in place of the old array
 		#print(tmp_string)
-		print('Condensing...')
+		print('Condensing...', str(c + 1), '/', str(len(commands)))
 
 
 
@@ -222,7 +222,7 @@ def main():
 	with open('samples\output_bin.txt', 'w+') as asmFile:  # Open file
 		for c in range(0, len(commands)):
 				asmFile.write(str(commands[c]) + '\n')  # For lines in ams file pull string data
-				print('Writing...')
+				print('Writing...', str(c + 1), '/', str(len(commands)))
 
 	return
 
