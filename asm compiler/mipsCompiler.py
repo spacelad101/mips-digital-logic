@@ -1,3 +1,5 @@
+__author__ = 'Tecnoman5000'
+
 import sys
 from dtb import convert
 sys.path.append('example generation')
@@ -105,13 +107,6 @@ def opcode_conversion():
 # all register address start with '$'
 def to_binary_converter():
 	for command_arrays in range(0, len(commands)):  # for the number of secondary arrays in commands
-		# if commands[c][0] == 'j' or commands[c][0] == 'jal':  # If encoder is a jump instruction
-		# 	for sc in range(1, len(commands[c])):  # runs for the number of commands in the second dimension array (start at one to avoid conflict with the encoder command)
-		# 		# print('checking')
-		# 		index = commands[c][sc].find('0x')  # search for hex value formatting
-		# 		if index == -1:  # if none found display error message and end script
-		# 			print('Bad "' + commands[c][0] + '" formatting, on line ' + str(c + 1) + '. "' + commands[c][sc][:3] + '" is an invalid option. MUST BE CONTAIN A HEX VALUE!')  # Error message
-		# 			sys.exit(0)  # End Script
 		input_syntax = opcode_syntax[commands[command_arrays][0]]  # store the input syntax of the current instruction
 		output_syntax = opcode_encoding[commands[command_arrays][0]]  # store the syntax for the output binary config
 		tmp_dict = {}
@@ -123,15 +118,13 @@ def to_binary_converter():
 				commands[command_arrays].append(tmp_dict[input_syntax[len_input_script:len_input_script+1]])  # add '00000' to the array
 			if input_syntax[len_input_script:len_input_script+1] == '-':  # if - found, then it won't be in the array and we have to create it
 				tmp_dict[input_syntax[len_input_script:len_input_script+1]] = '00000'  # add to the dict with the key '-'
-				commands[command_arrays].append(tmp_dict[input_syntax[len_input_script:len_input_script+1]])  # add '00000' to the array
 			else: # if it's not a '-' that means the command is already in the array
 				tmp_dict[input_syntax[len_input_script:len_input_script+1]] = commands[command_arrays][len_input_script+1]  # add a syntax key to each of the commands
 
 		for len_input_script in range(0, len(output_syntax)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
-			print(output_syntax)
 			if output_syntax[len_input_script:len_input_script+1] == '-' and output_syntax[len_input_script:len_input_script+1].find('-') != len(output_syntax) - 1:  # if - found, then it won't be in the array and we have to create it
 				tmp_array.append('00000')  # add to the array
-				commands[command_arrays].append('00000')  # add to the command line array
+				commands[command_arrays].append('00000')  # add to the command line array, to avoid conflict later
 			else:
 				tmp_array.append(tmp_dict[output_syntax[len_input_script:len_input_script+1]])  # add the commands into the right order, so after processing the commands come out as the syntax.
 
@@ -171,11 +164,8 @@ def condense_line():
 			tmp_string += commands[c][sc]  # add the commands in each position of the second dimensional array into the string
 
 		if len(tmp_string) != 32: #if the string is not a perfect 32 bits long adds '0's to the end until it is
-			while len(tmp_string) != 32:  # while the string isn't 32 bits long
-				if len(tmp_string) < 32:
-					tmp_string += '0'  # add zero to the end (this needs to be fixed, this needs to add to the front of the immediate value)
-				elif len(tmp_string) > 32:  # this a bandaid fix...
-					tmp_string = tmp_string[:len(tmp_string) - 1]
+			while len(tmp_string) < 32:  # while the string isn't 32 bits long
+				tmp_string += '0'  # add zero to the end, if the string has a immediate value it will already be 32 bits, else fill the end because the rest won't matter
 		commands[c] = tmp_string  # add the new string in place of the old array
 		print(tmp_string)
 
