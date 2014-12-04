@@ -41,52 +41,52 @@ def splice_file_input(file_input):  # find comma placement within the current li
 	space_place = []
 	tmp_array = []  # use a tmp_array to store the commands found on current line
 
-	index = file_input.find('#')  # check asm code for comment
-	if index > -1:  # if comment found
-		file_input = file_input[:index]  # remove comments from file line
+	find_reg_formatting = file_input.find('#')  # check asm code for comment
+	if find_reg_formatting > -1:  # if comment found
+		file_input = file_input[:find_reg_formatting]  # remove comments from file line
 
 	# find commands based on spaces in the file line
-	index = 0
-	while index < len(file_input):  # Find spaces in the supplied string
-		index = file_input.find(' ', index)  # finds the desired character within the string, then places the place value at which the desired char was found in the 'index' var
-		if index == -1:  # if the desired char is not found, the '.find()' command returns -1, then breaks the while loop (to avoid an infinite loop)
+	number = 0
+	while number < len(file_input):  # Find spaces in the supplied string
+		number = file_input.find(' ', number)  # finds the desired character within the string, then places the place value at which the desired char was found in the 'index' var
+		if number == -1:  # if the desired char is not found, the '.find()' command returns -1, then breaks the while loop (to avoid an infinite loop)
 			break
 
-		if index != 0 and index < len(file_input):
-			space_place.append(index)  # adds the place value of the desired char in the comma_place array
-		index += 1  # adds on to the place value of the desired char, so the next such for the char, starts after the initially found one. (to avoid an infinite loop of finding the initial desired char)
+		if number != 0 and number < len(file_input):
+			space_place.append(number)  # adds the place value of the desired char in the comma_place array
+		number += 1  # adds on to the place value of the desired char, so the next such for the char, starts after the initially found one. (to avoid an infinite loop of finding the initial desired char)
 
 	tmp_array.append(file_input[:space_place[0]])  # Adds the encoder command the the tmp_array
 	file_input = file_input[space_place[0] + 1:]  # Removes the encoder command from the file input, since it has already been spliced into the tmp_array
 
 	# find commands based on commas in the file line
-	index = 0
-	while index < len(file_input):  # Find commas in the supplied string
-		index = file_input.find(',', index)  # finds the desired character within the string, then places the place value at which the desired char was found in the 'index' var
-		if index == -1:  # if the desired char is not found, the '.find()' command returns -1, then breaks the while loop (to avoid an infinite loop)
+	number = 0
+	while number < len(file_input):  # Find commas in the supplied string
+		number = file_input.find(',', number)  # finds the desired character within the string, then places the place value at which the desired char was found in the 'index' var
+		if number == -1:  # if the desired char is not found, the '.find()' command returns -1, then breaks the while loop (to avoid an infinite loop)
 			break
 		# print("Found a comma at %d" %(index))  # print location of ,s when found
-		comma_place.append(index)  # adds the place value of the desired char in the comma_place array
-		index += 1  # adds on to the place value of the desired char, so the next such for the char, starts after the initially found one. (to avoid an infinite loop of finding the initial desired char)
+		comma_place.append(number)  # adds the place value of the desired char in the comma_place array
+		number += 1  # adds on to the place value of the desired char, so the next such for the char, starts after the initially found one. (to avoid an infinite loop of finding the initial desired char)
 
 	comma_place.append(len(file_input))  # add the end of the file_input
 	# num_commands = int(len(comma_place) + 1)  # Stores the number of commands found in current line of the file
 
 	# Adds the commands to the tmp_array
 	file_start = 0
-	for c in comma_place:  # for the number of commas + the end
-		tmp_array.append(file_input[file_start:c])  # add the single command to the commands list, c = the end of the command in the string
-		file_start = c + 1  # store the beginning of the next command's location in the string
+	for times in comma_place:  # for the number of commas + the end
+		tmp_array.append(file_input[file_start:times])  # add the single command to the commands list, c = the end of the command in the string
+		file_start = times + 1  # store the beginning of the next command's location in the string
 
-	for c in range(0, len(tmp_array)):  # for the length of the array
-		index = tmp_array[c].find(' ')  # search for ' ' (spaces), if found note their index
-		if index != -1:  # if one is found
-			tmp_array[c] = tmp_array[c].replace(' ', '')  # replace the space with nothing (removing it from the command)
+	for times in range(0, len(tmp_array)):  # for the length of the array
+		number = tmp_array[times].find(' ')  # search for ' ' (spaces), if found note their index
+		if number != -1:  # if one is found
+			tmp_array[times] = tmp_array[times].replace(' ', '')  # replace the space with nothing (removing it from the command)
 
-	index = file_input.find('(')  # search for special formatting **($*)
-	if index != -1:  # if formatting found
+	number = file_input.find('(')  # search for special formatting **($*)
+	if number != -1:  # if formatting found
 		tmp_array[len(tmp_array) - 1] = tmp_array[len(tmp_array) -1][0:1]  # remove the register formatting from the previous spot in the array
-		tmp_array.append(file_input[index + 1:index + 3])  # add the register command to the array (this works because this is the last thing to be added to this array)
+		tmp_array.append(file_input[number + 1:number + 3])  # add the register command to the array (this works because this is the last thing to be added to this array)
 
 	commands.append(tmp_array)  # add the tmp_array to the master array, as a second dimension (representing a new line)
 	return
@@ -94,8 +94,8 @@ def splice_file_input(file_input):  # find comma placement within the current li
 
 # first part 'encoder' gets converted into binary via the 'opcode' dict.
 def opcode_conversion():
-	for c in range(0, len(commands)):  # for the number of secondary arrays in commands
-		commands[c][0] = opcode[commands[c][0]]  # find encoder command (key) in dict, and replace with definition
+	for command_arrays in range(0, len(commands)):  # for the number of secondary arrays in commands
+		commands[command_arrays][0] = opcode[commands[command_arrays][0]]  # find encoder command (key) in dict, and replace with definition
 	return
 
 
@@ -103,7 +103,7 @@ def opcode_conversion():
 # encoders with 'i' at the end will have a hex value, hex value will always be the last value in the second dimensional array and start with '0x'
 # all register address start with '$'
 def to_binary_converter():
-	for c in range(0, len(commands)):  # for the number of secondary arrays in commands
+	for command_arrays in range(0, len(commands)):  # for the number of secondary arrays in commands
 		# if commands[c][0] == 'j' or commands[c][0] == 'jal':  # If encoder is a jump instruction
 		# 	for sc in range(1, len(commands[c])):  # runs for the number of commands in the second dimension array (start at one to avoid conflict with the encoder command)
 		# 		# print('checking')
@@ -111,55 +111,55 @@ def to_binary_converter():
 		# 		if index == -1:  # if none found display error message and end script
 		# 			print('Bad "' + commands[c][0] + '" formatting, on line ' + str(c + 1) + '. "' + commands[c][sc][:3] + '" is an invalid option. MUST BE CONTAIN A HEX VALUE!')  # Error message
 		# 			sys.exit(0)  # End Script
-		input_syntax = opcode_syntax[commands[c][0]]  # store the input syntax of the current instruction
-		output_syntax = opcode_encoding[commands[c][0]]  # store the syntax for the output binary config
+		input_syntax = opcode_syntax[commands[command_arrays][0]]  # store the input syntax of the current instruction
+		output_syntax = opcode_encoding[commands[command_arrays][0]]  # store the syntax for the output binary config
 		tmp_dict = {}
 		tmp_array = []
 
-		for sc in range(0, len(input_syntax)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
-			if input_syntax[sc:sc+1] == '':  # noop instruction exception
-				tmp_dict[input_syntax[sc:sc+1]] = '000000000000000000000000000000000'  # add to the dict with the key ''
-				commands[c].append(tmp_dict[input_syntax[sc:sc+1]])  # add '00000' to the array
-			if input_syntax[sc:sc+1] == '-':  # if - found, then it won't be in the array and we have to create it
-				tmp_dict[input_syntax[sc:sc+1]] = '00000'  # add to the dict with the key '-'
-				commands[c].append(tmp_dict[input_syntax[sc:sc+1]])  # add '00000' to the array
+		for len_input_script in range(0, len(input_syntax)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
+			if input_syntax[len_input_script:len_input_script+1] == '':  # noop instruction exception
+				tmp_dict[input_syntax[len_input_script:len_input_script+1]] = '000000000000000000000000000000000'  # add to the dict with the key ''
+				commands[command_arrays].append(tmp_dict[input_syntax[len_input_script:len_input_script+1]])  # add '00000' to the array
+			if input_syntax[len_input_script:len_input_script+1] == '-':  # if - found, then it won't be in the array and we have to create it
+				tmp_dict[input_syntax[len_input_script:len_input_script+1]] = '00000'  # add to the dict with the key '-'
+				commands[command_arrays].append(tmp_dict[input_syntax[len_input_script:len_input_script+1]])  # add '00000' to the array
 			else: # if it's not a '-' that means the command is already in the array
-				tmp_dict[input_syntax[sc:sc+1]] = commands[c][sc+1]  # add a syntax key to each of the commands
+				tmp_dict[input_syntax[len_input_script:len_input_script+1]] = commands[command_arrays][len_input_script+1]  # add a syntax key to each of the commands
 
-		for sc in range(0, len(output_syntax)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
+		for len_input_script in range(0, len(output_syntax)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
 			print(output_syntax)
-			if output_syntax[sc:sc+1] == '-' and output_syntax[sc:sc+1].find('-') != len(output_syntax) - 1:  # if - found, then it won't be in the array and we have to create it
+			if output_syntax[len_input_script:len_input_script+1] == '-' and output_syntax[len_input_script:len_input_script+1].find('-') != len(output_syntax) - 1:  # if - found, then it won't be in the array and we have to create it
 				tmp_array.append('00000')  # add to the array
-				commands[c].append('00000')  # add to the command line array
+				commands[command_arrays].append('00000')  # add to the command line array
 			else:
-				tmp_array.append(tmp_dict[output_syntax[sc:sc+1]])  # add the commands into the right order, so after processing the commands come out as the syntax.
+				tmp_array.append(tmp_dict[output_syntax[len_input_script:len_input_script+1]])  # add the commands into the right order, so after processing the commands come out as the syntax.
 
-		for sc in range(0, len(tmp_array)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
-			index = tmp_array[sc].find('$')  # search for '$' and hold the place value of the '$' in the current string, within the second dimension array
+		for len_input_script in range(0, len(tmp_array)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
+			find_reg_formatting = tmp_array[len_input_script].find('$')  # search for '$' and hold the place value of the '$' in the current string, within the second dimension array
 
-			if index == 0:  # if a '$' was found and is at the beginning of the commands (to avoid conflict with hex value commands)
-				tmp_array[sc] = tmp_array[sc][index + 1:]  # remove the '$' formatting
-				tmp_array[sc] = registers[int(tmp_array[sc])]  # use the register commands as a reference in the 'registers' array and replace with the corresponding binary number
+			if find_reg_formatting == 0:  # if a '$' was found and is at the beginning of the commands (to avoid conflict with hex value commands)
+				tmp_array[len_input_script] = tmp_array[len_input_script][find_reg_formatting + 1:]  # remove the '$' formatting
+				tmp_array[len_input_script] = registers[int(tmp_array[len_input_script])]  # use the register commands as a reference in the 'registers' array and replace with the corresponding binary number
 
 			else:  # if not a register value ($*), assume it's a decimal number
-				if tmp_array[sc].isdigit() and tmp_array[sc] != '00000':  # check if the command is indeed only digits
+				if tmp_array[len_input_script].isdigit() and tmp_array[len_input_script] != '00000':  # check if the command is indeed only digits
 					# C value default bit length is 16
-					if output_syntax[sc:sc+1] == 'C' and len(tmp_array) != 1:
+					if output_syntax[len_input_script:len_input_script+1] == 'C' and len(tmp_array) != 1:
 						current_bit_length = 16
 					# C value special bit length is 26 (in this case, it will be the only value besides the instruction)
 					elif len(tmp_array) == 1:
 						current_bit_length = 26
 					# H value only bit length is 5
-					elif output_syntax[sc:sc+1] == 'H':
+					elif output_syntax[len_input_script:len_input_script+1] == 'H':
 						current_bit_length = 5
 
-					if  convert(current_bit_length, int(tmp_array[sc])) == 'badnum':  # if the convert fails, throw error
-						print('Invalid Bit length or Value: BADNUM. Bit length = ' + str(current_bit_length) + ', Decimal Value = ' + tmp_array[sc] ) # Error message
+					if  convert(current_bit_length, int(tmp_array[len_input_script])) == 'badnum':  # if the convert fails, throw error
+						print('Invalid Bit length or Value: BADNUM. Bit length = ' + str(current_bit_length) + ', Decimal Value = ' + tmp_array[len_input_script] ) # Error message
 						sys.exit(0) # End Script
-					tmp_array[sc] =  convert(current_bit_length, int(tmp_array[sc]))
+					tmp_array[len_input_script] =  convert(current_bit_length, int(tmp_array[len_input_script]))
 
-		for sc in range(0, len(tmp_array)):
-			commands[c][sc + 1] = tmp_array[sc]
+		for len_input_script in range(0, len(tmp_array)):
+			commands[command_arrays][len_input_script + 1] = tmp_array[len_input_script]
 	return
 
 def condense_line():
