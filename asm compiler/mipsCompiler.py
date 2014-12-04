@@ -127,7 +127,8 @@ def to_binary_converter():
 				tmp_dict[input_syntax[sc:sc+1]] = commands[c][sc+1]  # add a syntax key to each of the commands
 
 		for sc in range(0, len(output_syntax)):  # runs for the number of commands in the second dimension array, except the encoder command range(start after the encoder position in the array, length of the array)
-			if output_syntax[sc:sc+1] == '-':  # if - found, then it won't be in the array and we have to create it
+			print(output_syntax)
+			if output_syntax[sc:sc+1] == '-' and output_syntax[sc:sc+1].find('-') != len(output_syntax) - 1:  # if - found, then it won't be in the array and we have to create it
 				tmp_array.append('00000')  # add to the array
 				commands[c].append('00000')  # add to the command line array
 			else:
@@ -172,7 +173,7 @@ def condense_line():
 			while len(tmp_string) != 32:  # while the string isn't 32 bits long
 				if len(tmp_string) < 32:
 					tmp_string += '0'  # add zero to the end (this needs to be fixed, this needs to add to the front of the immediate value)
-				elif len(tmp_string) > 32:
+				elif len(tmp_string) > 32:  # this a bandaid fix...
 					tmp_string = tmp_string[:len(tmp_string) - 1]
 		commands[c] = tmp_string  # add the new string in place of the old array
 		print(tmp_string)
