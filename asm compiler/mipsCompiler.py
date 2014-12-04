@@ -5,12 +5,6 @@ from dtb import convert
 sys.path.append('example generation')
 from createExamples import create_asm
 
-create_asm(int(input("Number of examples to test?: ")))
-
-file_name = str(input("Name of file to compile? (*.txt): "))
-if file_name == '':
-	file_name = "samples\examples.txt"  # For testing purposes, making runs faster to test.
-	print('No file chosen, reverting to default. (samples\examples.txt)')
 commands = []  # Master Command array, will hold arrays or commands
 
 # Defines registers $0 - $31 as corresponding binary values
@@ -116,8 +110,10 @@ def to_binary_converter():
 			if input_syntax[len_input_script:len_input_script+1] == '':  # noop instruction exception
 				tmp_dict[input_syntax[len_input_script:len_input_script+1]] = '000000000000000000000000000000000'  # add to the dict with the key ''
 				commands[command_arrays].append(tmp_dict[input_syntax[len_input_script:len_input_script+1]])  # add '00000' to the array
+
 			if input_syntax[len_input_script:len_input_script+1] == '-':  # if - found, then it won't be in the array and we have to create it
 				tmp_dict[input_syntax[len_input_script:len_input_script+1]] = '00000'  # add to the dict with the key '-'
+
 			else: # if it's not a '-' that means the command is already in the array
 				tmp_dict[input_syntax[len_input_script:len_input_script+1]] = commands[command_arrays][len_input_script+1]  # add a syntax key to each of the commands
 
@@ -154,6 +150,7 @@ def to_binary_converter():
 
 		for len_input_script in range(0, len(tmp_array)):
 			commands[command_arrays][len_input_script + 1] = tmp_array[len_input_script]
+		print('Converting...')
 	return
 
 def condense_line():
@@ -167,45 +164,66 @@ def condense_line():
 			while len(tmp_string) < 32:  # while the string isn't 32 bits long
 				tmp_string += '0'  # add zero to the end, if the string has a immediate value it will already be 32 bits, else fill the end because the rest won't matter
 		commands[c] = tmp_string  # add the new string in place of the old array
-		print(tmp_string)
+		#print(tmp_string)
+		print('Condensing...')
 
 
-with open(file_name, 'r') as asmFile:  # Open file
-	for line in asmFile.read().splitlines():  # For lines in ams file pull string data
-		index = line.find('#')  # check for comment formatting
-		if index != 0 and line != '':  # if comment formatting not found at the beginning of the line
-			splice_file_input(line)  # pull the commands out of the input
 
-print('Original Input: ', end='')
-for c in range(0, len(commands)):
-	print(commands[c], end='')
-print()
-to_binary_converter()  # Start the hex value conversion process
-print('Registers and Immediate values converted: ', end='')
-for c in range(0, len(commands)):
-	print(commands[c], end='')
-print()
-opcode_conversion()  # Start the opcode conversion for the encoder commands from ascii to binary
-print('Instruction codes converted: ', end='')
-for c in range(0, len(commands)):
-	print(commands[c], end='')
-print()
-condense_line()  # condense the array of commands in a single string
-print('Condensed into 32 bit strings: ', end='')
-for c in range(0, len(commands)):
-	print(commands[c])
 
-for c in range(0, len(commands)):  # check bit lengths for each of the lines of commands
-	total_bit_length = 0
-	for sc in range(0, len(commands[c])):
-		total_bit_length += len(commands[c][sc])
-	if total_bit_length != 32:
-		print('Error, bad bit length. Check Syntax!')
-		print('Bit length - ', total_bit_length)
-		print('Binary string - ', commands[c])
+def main():
+	create_asm(int(input("Number of examples to test?: ")))
 
-# Default rule - hex value must be 4 long after '0x'  (implemented)
-# rule  # 1 - sll & srl must have a hexValue that starts with 0x1* or 0x0*, where * stands for one more single hex value (implemented)
-# rule  # 2 - j & jal must have a hexValue (check this before doing conversions)
+	file_name = str(input("Name of file to compile? (*.txt): "))
+	if file_name == '':
+		file_name = "samples\examples.txt"  # For testing purposes, making runs faster to test.
+		print('No file chosen, reverting to default. (samples\examples.txt)')
 
-#output file name *_bin
+	with open(file_name, 'r') as asmFile:  # Open file
+		for line in asmFile.read().splitlines():  # For lines in ams file pull string data
+			print('Reading...')
+
+			index = line.find('#')  # check for comment formatting
+			if index != 0 and line != '':  # if comment formatting not found at the beginning of the line
+				splice_file_input(line)  # pull the commands out of the input
+
+	#print('Original Input: ', end='')
+	#for c in range(0, len(commands)):
+		#print(commands[c], end='')
+	#print()
+	to_binary_converter()  # Start the hex value conversion process
+	#print('Registers and Immediate values converted: ', end='')
+	#for c in range(0, len(commands)):
+		#print(commands[c], end='')
+	#print()
+	opcode_conversion()  # Start the opcode conversion for the encoder commands from ascii to binary
+	#print('Instruction codes converted: ', end='')
+	#for c in range(0, len(commands)):
+		# print(commands[c], end='')
+	# print()
+	condense_line()  # condense the array of commands in a single string
+	# print('Condensed into 32 bit strings: ', end='')
+	#for c in range(0, len(commands)):
+		#print(commands[c])
+
+	for c in range(0, len(commands)):  # check bit lengths for each of the lines of commands
+		total_bit_length = 0
+		for sc in range(0, len(commands[c])):
+			total_bit_length += len(commands[c][sc])
+		if total_bit_length != 32:
+			print('Error, bad bit length. Check Syntax!')
+			print('Bit length - ', total_bit_length)
+			print('Binary string - ', commands[c])
+
+	# Default rule - hex value must be 4 long after '0x'  (implemented)
+	# rule  # 1 - sll & srl must have a hexValue that starts with 0x1* or 0x0*, where * stands for one more single hex value (implemented)
+	# rule  # 2 - j & jal must have a hexValue (check this before doing conversions)
+	#output file name *_bin
+
+	with open('samples\output_bin.txt', 'w+') as asmFile:  # Open file
+		for c in range(0, len(commands)):
+				asmFile.write(str(commands[c]) + '\n')  # For lines in ams file pull string data
+				print('Writing...')
+
+	return
+
+main()
