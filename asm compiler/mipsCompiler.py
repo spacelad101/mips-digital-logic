@@ -156,9 +156,7 @@ def to_binary_converter():
 def condense_line():
 	for c in range(0, len(commands)):
 		tmp_string = ''  # will hold the newly created string
-
-		for sc in range(0, len(commands[c])):
-			tmp_string += commands[c][sc]  # add the commands in each position of the second dimensional array into the string
+		tmp_string.join(commands[c]) # add the commands in each position of the second dimensional array into the string
 
 		if len(tmp_string) != 32: #if the string is not a perfect 32 bits long adds '0's to the end until it is
 			while len(tmp_string) < 32:  # while the string isn't 32 bits long
