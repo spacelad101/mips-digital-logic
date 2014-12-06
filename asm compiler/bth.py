@@ -35,6 +35,8 @@ def convert_hex(path):
 			for y in range(0,6):
 				final_addr_arr[x] += binarytohex[addr_arr[x][y*4:y*4+4]]
 
+		#path = path[:-4]
+
 		with open(path + '_hex', 'w+') as hexFile: #Write this stupid shit to a new file
 			for x in range(0,len(output_arr)): #This asshole smashed the instruction and address together.
 				output_arr[x] = str(final_addr_arr[x] + ": " + hex_arr[x] + " ;")
@@ -42,4 +44,4 @@ def convert_hex(path):
 				print(output_arr[x])
 
 
-convert_hex(str(input('Path to file to compile? (*_bin)')))
+#convert_hex(str(input('Path to file to compile? (*_bin)')))

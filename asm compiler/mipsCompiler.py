@@ -1,9 +1,10 @@
 __author__ = 'Tecnoman5000'
 import sys
 import time
+import ntpath
+import os
 from dtb import convert
 sys.path.append('example generation')
-from createExamples import create_asm
 
 commands = []  # Master Command array, will hold arrays or commands
 
@@ -166,15 +167,19 @@ def condense_line():
 
 
 
-def main():
+def main(filepath):
 	time_started = time.time()
-	create_asm(int(input("Number of examples to test?: ")))
+	#create_asm(int(input("Number of examples to test?: ")))
 
-	file_name = str(input("Name of file to compile? (*.txt): "))
+	file_name = filepath#str(input("Name of file to compile? (*.txt): "))
 	if file_name == '':
-		file_name = "samples\examples_asm"  # For testing purposes, making runs faster to test.
+		"""
+		file_name = "samples/examples.asm"  # For testing purposes, making runs faster to test.
 		print('No file chosen, reverting to default. (samples\examples_asm)')
 		time.sleep(3);
+		"""
+		raise Exception("No File Specified!")
+
 
 	with open(file_name, 'r') as asmFile:  # Open file
 		tmp_int = 0;
@@ -205,8 +210,10 @@ def main():
 	# rule  # 1 - sll & srl must have a hexValue that starts with 0x1* or 0x0*, where * stands for one more single hex value (implemented)
 	# rule  # 2 - j & jal must have a hexValue (check this before doing conversions)
 	#output file name *_bin
+	if not os.path.exists("output"):
+		os.makedirs("output")
 
-	with open('samples\output_bin', 'w+') as asmFile:  # Open file
+	with open('output/' + ntpath.basename(os.path.splitext(file_name)[0]) + '_bin', 'w+') as asmFile:  # Open file
 		for c in range(0, len(commands)):
 				asmFile.write(str(commands[c]) + '\n')  # For lines in ams file pull string data
 				print('Writing...', str(c + 1), '/', str(len(commands)))
@@ -219,9 +226,7 @@ def main():
 	else:
 		total_time_int = int(total_time)
 		print('Time Elapsed: ', total_time_int, ' seconds')
-	time.sleep(10)
-	input('Press Enter to Continue')
+	#time.sleep(10)
+	#input('Press Enter to Continue')
 
 	return
-
-main()

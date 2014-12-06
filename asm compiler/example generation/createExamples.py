@@ -53,4 +53,4 @@ def create_asm(number):
 				asmFile.write(str(examples[c]) + '\n')  # For lines in ams file pull string data
 				print('Writing... ' + str(c + 1) + '/' + str(number))
 
-#create_asm(14)
+create_asm(int(input("Number of sample instructions to generate?: ")))
