@@ -46,10 +46,11 @@ def create_asm(number):
 				tmp_string += ','
 		examples.append(instruction[instruction_num] + ' ' + tmp_string)
 
-		#print(examples[n])
+		print('Creating Examples... ' + str(n + 1) + '/' + str(number))
 
-	with open('samples\examples.txt', 'w+') as asmFile:  # Open file
+	with open('samples\examples_asm', 'w+') as asmFile:  # Open file
 		for c in range(0, len(examples)):
 				asmFile.write(str(examples[c]) + '\n')  # For lines in ams file pull string data
+				print('Writing... ' + str(c + 1) + '/' + str(number))
 
 #create_asm(14)

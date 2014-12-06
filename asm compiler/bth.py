@@ -42,4 +42,4 @@ def convert_hex(path):
 				print(output_arr[x])
 
 
-convert_hex(str(input('Path to file to compile?')))
+convert_hex(str(input('Path to file to compile? (*_bin)')))

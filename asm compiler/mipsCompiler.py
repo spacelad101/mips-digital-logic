@@ -1,6 +1,6 @@
 __author__ = 'Tecnoman5000'
-
 import sys
+import time
 from dtb import convert
 sys.path.append('example generation')
 from createExamples import create_asm
@@ -155,9 +155,7 @@ def to_binary_converter():
 
 def condense_line():
 	for c in range(0, len(commands)):
-		tmp_string = ''  # will hold the newly created string
-		tmp_string.join(commands[c]) # add the commands in each position of the second dimensional array into the string
-
+		tmp_string = ''.join(commands[c])  # join the array, with nothing ('') between each array place value.
 		if len(tmp_string) != 32: #if the string is not a perfect 32 bits long adds '0's to the end until it is
 			while len(tmp_string) < 32:  # while the string isn't 32 bits long
 				tmp_string += '0'  # add zero to the end, if the string has a immediate value it will already be 32 bits, else fill the end because the rest won't matter
@@ -169,39 +167,30 @@ def condense_line():
 
 
 def main():
+	time_started = time.time()
 	create_asm(int(input("Number of examples to test?: ")))
 
 	file_name = str(input("Name of file to compile? (*.txt): "))
 	if file_name == '':
-		file_name = "samples\examples.txt"  # For testing purposes, making runs faster to test.
-		print('No file chosen, reverting to default. (samples\examples.txt)')
+		file_name = "samples\examples_asm"  # For testing purposes, making runs faster to test.
+		print('No file chosen, reverting to default. (samples\examples_asm)')
+		time.sleep(3);
 
 	with open(file_name, 'r') as asmFile:  # Open file
+		tmp_int = 0;
 		for line in asmFile.read().splitlines():  # For lines in ams file pull string data
-			print('Reading...')
+			print('Reading...', str(tmp_int))
+			tmp_int += 1;
 
 			index = line.find('#')  # check for comment formatting
 			if index != 0 and line != '':  # if comment formatting not found at the beginning of the line
 				splice_file_input(line)  # pull the commands out of the input
 
-	#print('Original Input: ', end='')
-	#for c in range(0, len(commands)):
-		#print(commands[c], end='')
-	#print()
 	to_binary_converter()  # Start the hex value conversion process
-	#print('Registers and Immediate values converted: ', end='')
-	#for c in range(0, len(commands)):
-		#print(commands[c], end='')
-	#print()
+
 	opcode_conversion()  # Start the opcode conversion for the encoder commands from ascii to binary
-	#print('Instruction codes converted: ', end='')
-	#for c in range(0, len(commands)):
-		# print(commands[c], end='')
-	# print()
+
 	condense_line()  # condense the array of commands in a single string
-	# print('Condensed into 32 bit strings: ', end='')
-	#for c in range(0, len(commands)):
-		#print(commands[c])
 
 	for c in range(0, len(commands)):  # check bit lengths for each of the lines of commands
 		total_bit_length = 0
@@ -217,10 +206,21 @@ def main():
 	# rule  # 2 - j & jal must have a hexValue (check this before doing conversions)
 	#output file name *_bin
 
-	with open('samples\output_bin.txt', 'w+') as asmFile:  # Open file
+	with open('samples\output_bin', 'w+') as asmFile:  # Open file
 		for c in range(0, len(commands)):
 				asmFile.write(str(commands[c]) + '\n')  # For lines in ams file pull string data
 				print('Writing...', str(c + 1), '/', str(len(commands)))
+
+	total_time = time.time() - time_started
+	if total_time > 60:
+		total_time /= 60
+		total_time_int = int(total_time)
+		print('Time Elapsed: ', total_time_int, ' minutes')
+	else:
+		total_time_int = int(total_time)
+		print('Time Elapsed: ', total_time_int, ' seconds')
+	time.sleep(10)
+	input('Press Enter to Continue')
 
 	return
 
