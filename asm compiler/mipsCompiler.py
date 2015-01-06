@@ -1,6 +1,5 @@
 __author__ = 'Tecnoman5000'
 import sys
-import time
 import ntpath
 import os
 from dtb import convert
@@ -168,7 +167,6 @@ def condense_line():
 
 
 def mips_main(filepath):
-	time_started = time.time()
 	#create_asm(int(input("Number of examples to test?: ")))
 
 	file_name = filepath#str(input("Name of file to compile? (*.txt): "))
@@ -218,14 +216,6 @@ def mips_main(filepath):
 				asmFile.write(str(commands[c]) + '\n')  # For lines in ams file pull string data
 				print('Writing...', str(c + 1), '/', str(len(commands)))
 
-	total_time = time.time() - time_started
-	if total_time > 60:
-		total_time /= 60
-		total_time_int = int(total_time)
-		print('Time Elapsed: ', total_time_int, ' minutes')
-	else:
-		total_time_int = int(total_time)
-		print('Time Elapsed: ', total_time_int, ' seconds')
 	#time.sleep(10)
 	#input('Press Enter to Continue')
 

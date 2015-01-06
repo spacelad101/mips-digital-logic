@@ -1,6 +1,4 @@
 __author__ = 'Tecnoman5000'
-import ntpath
-import os
 def rom_main(rom_file_name, hex_file_name):
 	hex_file_path = hex_file_name
 	hex_arr = []
@@ -24,15 +22,16 @@ def rom_main(rom_file_name, hex_file_name):
 	for index in range(0, len(hex_arr)):
 		print (hex_arr[index])
 		rom_array.append(hex_arr[index])
-		rom_array.append(" 0")
-		rom_array.append(" 0")
-		rom_array.append(" 0 ")
+		rom_array.append(" 0 0 0 ")
+		#rom_array.append(" 0")
+		#rom_array.append(" 0")
+		#rom_array.append(" 0 ")
 
 	# write file
 	with open(rom_file_name, 'w+') as romFile:
 		romFile.write('v2.0 raw\n')
 		for index in range(0, len(rom_array)):
-			if address >= 8:
+			if address >= 4:
 				address = 0
 				romFile.write('\n')
 			#print (rom_array[index])
