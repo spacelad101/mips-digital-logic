@@ -11,10 +11,10 @@ def convert_all(filepath):
 	output = 'output/' + ntpath.basename(os.path.splitext(filepath)[0])
 	#Convert the binary to hex
 	convert_hex(output)
-	hex_name="example_asm_hex"
+	hex_name= output + "_hex"
 	#Ask for output name
 	#rom_name=str(input("output name for hex to rom file?: "))
-	rom_name = "example_asm_rom"
+	rom_name = output + "_rom"
 	#Pass the name and hex file into the rom generator
 	rom_main(rom_name,hex_name)
 	#Put the rom generator function here when its done

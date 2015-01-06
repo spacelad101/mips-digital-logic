@@ -2,7 +2,7 @@ __author__ = 'Tecnoman5000'
 import ntpath
 import os
 def rom_main(rom_file_name, hex_file_name):
-	hex_file_path = "output/" + hex_file_name
+	hex_file_path = hex_file_name
 	hex_arr = []
 	rom_array = []
 	num_lines = 0
@@ -25,9 +25,10 @@ def rom_main(rom_file_name, hex_file_name):
 		rom_array.append(" 0")
 		rom_array.append(" 0 ")
 
-	with open('output/' 'ex_rom', 'w+') as asmFile:
+	with open(rom_file_name, 'w+') as romFile:
 		for index in range(0, len(rom_array)):
 			#print (rom_array[index])
+			romFile.write("test")
 			address += 1
 		
 
