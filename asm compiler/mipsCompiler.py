@@ -167,7 +167,7 @@ def condense_line():
 
 
 
-def main(filepath):
+def mips_main(filepath):
 	time_started = time.time()
 	#create_asm(int(input("Number of examples to test?: ")))
 
