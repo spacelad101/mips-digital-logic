@@ -1,13 +1,18 @@
 __author__ = 'Tecnoman5000'
+import ntpath
+import os
 def rom_main(rom_file_name, hex_file_name):
 	hex_file_path = "output/" + hex_file_name
 	hex_arr = []
-	final_array = []
+	rom_array = []
 	num_lines = 0
 	address = 0
 
 	with open(hex_file_path, 'r') as hex_file:  # Open file
 		for line in hex_file.read().splitlines():  # For lines in hex file pull string data
+			address_start = line.find(': ')
+			address_end = line.find(' ;')
+			line = line[address_start+2:address_end]
 			hex_arr.append(line)
 			num_lines += 1
 
@@ -15,10 +20,14 @@ def rom_main(rom_file_name, hex_file_name):
 
 	for index in range(0, len(hex_arr)):
 		print (hex_arr[index])
-		final_array.append(hex_arr[index])
-		final_array.append(" 0")
-		final_array.append(" 0")
-		final_array.append(" 0 ")
+		rom_array.append(hex_arr[index])
+		rom_array.append(" 0")
+		rom_array.append(" 0")
+		rom_array.append(" 0 ")
 
-	for index in range(0, len(final_array)):
-		print (final_array[index])
+	with open('output/' 'ex_rom', 'w+') as asmFile:
+		for index in range(0, len(rom_array)):
+			#print (rom_array[index])
+			address += 1
+		
+

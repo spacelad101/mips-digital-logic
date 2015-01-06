@@ -13,7 +13,8 @@ def convert_all(filepath):
 	convert_hex(output)
 	hex_name="example_asm_hex"
 	#Ask for output name
-	rom_name=str(input("output name for hex to rom file?: "))
+	#rom_name=str(input("output name for hex to rom file?: "))
+	rom_name = "example_asm_rom"
 	#Pass the name and hex file into the rom generator
 	rom_main(rom_name,hex_name)
 	#Put the rom generator function here when its done
