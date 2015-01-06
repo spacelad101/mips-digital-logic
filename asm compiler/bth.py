@@ -30,7 +30,7 @@ def convert_hex(path):
 			addr_arr[x] = convert(24,address)
 			if addr_arr[x] is "badnum":
 				return "'badnum' error has occurred, check that your program isn't too big!"
-			print("Converting binary to hex: "+str(x)+"/"+str(len(bin_arr)))
+			#print("Converting binary to hex: "+str(x+1)+"/"+str(len(bin_arr)))
 
 		for x in range(0,len(addr_arr)): #This motherfucker makes fucking addresses for every instruction every 4th address space
 			for y in range(0,6):

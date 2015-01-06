@@ -151,7 +151,7 @@ def to_binary_converter():
 
 		for len_input_script in range(0, len(tmp_array)):
 			commands[command_arrays][len_input_script + 1] = tmp_array[len_input_script]
-		print('Converting... ', str(command_arrays + 1), '/', str(len(commands)))
+		#print('Converting... ', str(command_arrays + 1), '/', str(len(commands)))
 	return
 
 def condense_line():
@@ -162,7 +162,7 @@ def condense_line():
 				tmp_string += '0'  # add zero to the end, if the string has a immediate value it will already be 32 bits, else fill the end because the rest won't matter
 		commands[c] = tmp_string  # add the new string in place of the old array
 		#print(tmp_string)
-		print('Condensing...', str(c + 1), '/', str(len(commands)))
+		#print('Condensing...', str(c + 1), '/', str(len(commands)))
 
 
 
@@ -183,7 +183,7 @@ def mips_main(filepath):
 	with open(file_name, 'r') as asmFile:  # Open file
 		tmp_int = 0;
 		for line in asmFile.read().splitlines():  # For lines in ams file pull string data
-			print('Reading...', str(tmp_int))
+			#print('Reading...', str(tmp_int))
 			tmp_int += 1;
 
 			index = line.find('#')  # check for comment formatting
@@ -215,7 +215,7 @@ def mips_main(filepath):
 	with open('output/' + ntpath.basename(os.path.splitext(file_name)[0]) + '_bin', 'w+') as asmFile:  # Open file
 		for c in range(0, len(commands)):
 				asmFile.write(str(commands[c]) + '\n')  # For lines in ams file pull string data
-				print('Writing...', str(c + 1), '/', str(len(commands)))
+				#print('Writing...', str(c + 1), '/', str(len(commands)))
 
 	#time.sleep(10)
 	#input('Press Enter to Continue')
