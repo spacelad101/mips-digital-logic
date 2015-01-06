@@ -1,4 +1,5 @@
 __author__ = 'Tecnoman5000'
+__author__ = 'spacelad101'
 def rom_main(rom_file_name, hex_file_name):
 	hex_file_path = hex_file_name
 	hex_arr = []
@@ -16,16 +17,10 @@ def rom_main(rom_file_name, hex_file_name):
 			hex_arr.append(line)  # add just the address to the array
 			num_lines += 1  # count the number of lines
 
-	print(num_lines)
-
 	# create the rom array to write later
 	for index in range(0, len(hex_arr)):
-		print (hex_arr[index])
 		rom_array.append(hex_arr[index])
 		rom_array.append(" 0 0 0 ")
-		#rom_array.append(" 0")
-		#rom_array.append(" 0")
-		#rom_array.append(" 0 ")
 
 	# write file
 	with open(rom_file_name, 'w+') as romFile:

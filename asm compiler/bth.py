@@ -16,7 +16,7 @@ def convert_hex(path):
 			if line != '':
 				bin_arr.append(line)
 				numlines += 1
-		print(bin_arr)
+		#print(bin_arr)
 
 		hex_arr = ['']*numlines
 		addr_arr = ['']*numlines
@@ -30,6 +30,7 @@ def convert_hex(path):
 			addr_arr[x] = convert(24,address)
 			if addr_arr[x] is "badnum":
 				return "'badnum' error has occurred, check that your program isn't too big!"
+			print("Converting binary to hex: "+str(x)+"/"+str(len(bin_arr)))
 
 		for x in range(0,len(addr_arr)): #This motherfucker makes fucking addresses for every instruction every 4th address space
 			for y in range(0,6):
@@ -41,7 +42,7 @@ def convert_hex(path):
 			for x in range(0,len(output_arr)): #This asshole smashed the instruction and address together.
 				output_arr[x] = str(final_addr_arr[x] + ": " + hex_arr[x] + " ;")
 				hexFile.write(str(output_arr[x]) + '\n')
-				print(output_arr[x])
+				#print(output_arr[x])
 
 
 #convert_hex(str(input('Path to file to compile? (*_bin)')))

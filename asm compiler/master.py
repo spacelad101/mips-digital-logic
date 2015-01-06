@@ -1,3 +1,6 @@
+__author__ = 'Tecnoman5000'
+__author__ = 'spacelad101'
+
 from mipsCompiler import mips_main
 from bth import convert_hex
 from romCompiler import rom_main
