@@ -15,7 +15,8 @@ def convert_all(file_path):
 		print("Input was null, reverting to default (samples/example_asm)")
 		file_path = 'samples/example_asm'
 		time.sleep(1)
-	
+
+	print("Mips Assembler Started...")
 	time_started = time.time()  # mark program start time
 
 	#Convert the assembly into binary
@@ -25,6 +26,7 @@ def convert_all(file_path):
 	time_ended = time.time()
 	mips_time = time_ended - time_started
 
+	print("Hex Conversion Started...")
 	hex_time_start = time.time() # mark down start time of hex conversion
 
 	#define output path to store everything in
@@ -37,6 +39,7 @@ def convert_all(file_path):
 	time_ended = time.time()
 	hex_time = time_ended - hex_time_start
 
+	print("Rom Assembler Started...")
 	rom_time_start = time.time() # mark down start time of rom assemble
 	#Ask for output name
 	#rom_name=str(input("output name for hex to rom file?: "))
