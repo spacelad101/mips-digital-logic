@@ -18,7 +18,7 @@ def rom_main(rom_file_name, hex_file_name):
 
 	# write file
 	with open(rom_file_name, 'w+') as rom_file:
-		print("Rom output file name: "+rom_file_name)
+		#print("Rom output file name: "+rom_file_name)
 		rom_file.write('v2.0 raw')
 		for index in range(0, len(hex_arr)):
 			if index % 2 == 0:

@@ -144,9 +144,8 @@ def to_binary_converter():
 					elif output_syntax[len_input_script:len_input_script+1] == 'H':
 						current_bit_length = 5
 
-					if  convert(current_bit_length, int(tmp_array[len_input_script])) == 'badnum':  # if the convert fails, throw error
-						print('Invalid Bit length or Value: BADNUM. Bit length = ' + str(current_bit_length) + ', Decimal Value = ' + tmp_array[len_input_script] ) # Error message
-						sys.exit(0) # End Script
+					if  convert(current_bit_length, int(tmp_array[len_input_script])) == 'badnum':  # if the convert fails, throw error # Error message
+						raise ValueError('Invalid Bit length or Value: BADNUM','Bit length = ' + str(current_bit_length) + ', Decimal Value = ' + tmp_array[len_input_script])
 					tmp_array[len_input_script] =  convert(current_bit_length, int(tmp_array[len_input_script]))
 
 		for len_input_script in range(0, len(tmp_array)):
@@ -167,17 +166,12 @@ def condense_line():
 
 
 
-def mips_main(filepath):
+def mips_main(file_path):
 	#create_asm(int(input("Number of examples to test?: ")))
 
-	file_name = filepath#str(input("Name of file to compile? (*.txt): "))
+	file_name = file_path#str(input("Name of file to compile? (*.txt): "))
 	if file_name == '':
-		"""
-		file_name = "samples/examples.asm"  # For testing purposes, making runs faster to test.
-		print('No file chosen, reverting to default. (samples\examples_asm)')
-		time.sleep(3);
-		"""
-		raise Exception("No File Specified!")
+		raise NameError('No File Specified!', 'Try again!')
 
 
 	with open(file_name, 'r') as asmFile:  # Open file
@@ -185,10 +179,15 @@ def mips_main(filepath):
 		for line in asmFile.read().splitlines():  # For lines in ams file pull string data
 			#print('Reading...', str(tmp_int))
 			tmp_int += 1;
-
+			#line = line.lstrip()
+			#line = line.rstrip()
+			print(line)
 			index = line.find('#')  # check for comment formatting
 			if index != 0 and line != '':  # if comment formatting not found at the beginning of the line
 				splice_file_input(line)  # pull the commands out of the input
+
+	if len(commands) >= 4194303:
+		raise MemoryError('File size exceeds max addressable memory', 'Exceeds 16MB or 4194303 lines')
 
 	to_binary_converter()  # Start the hex value conversion process
 

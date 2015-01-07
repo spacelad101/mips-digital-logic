@@ -4,11 +4,14 @@ __author__ = 'spacelad101'
 from mipsCompiler import mips_main
 from bth import convert_hex
 from romCompiler import rom_main
-import os
-import ntpath
+from os import path, name, system
+from sys import exit
+from ntpath import basename
 import time
+#import tkinter
 
 def convert_all(file_path):
+
 
 	#used for quick testing
 	if file_path == '':
@@ -20,7 +23,20 @@ def convert_all(file_path):
 	time_started = time.time()  # mark program start time
 
 	#Convert the assembly into binary
-	mips_main(file_path)
+	try:
+		mips_main(file_path)
+	except MemoryError as mem_err:
+		print(mem_err.args)
+		exit(0) # End Script
+	except NameError as name_err:  # Null name exception
+		print(name_err.args)
+		convert_all(str(input("Path of assembly file to compile?: ")))
+	except FileNotFoundError as file_err:  # Invalid name exception
+		print(file_err.args, 'Try Again!')
+		convert_all(str(input("Path of assembly file to compile?: ")))
+	except ValueError as val_err:
+		print(val_err.args)
+		exit(0) # End Script
 
 	#mark down mips assemble time
 	time_ended = time.time()
@@ -30,7 +46,7 @@ def convert_all(file_path):
 	hex_time_start = time.time() # mark down start time of hex conversion
 
 	#define output path to store everything in
-	output = 'output/' + ntpath.basename(os.path.splitext(file_path)[0])
+	output = 'output/' + basename(path.splitext(file_path)[0])
 	#Convert the binary to hex
 	convert_hex(output)
 	hex_name= output + "_hex"
@@ -55,10 +71,16 @@ def convert_all(file_path):
 	time_ended = time.time()
 	total_time = time_ended - time_started
 
+	time.sleep(1)
+	system('cls' if name == 'nt' else 'clear')  # Clear screen of operation text
+
+	# Display the different time stamps
 	display_time(mips_time,"Mips ")
 	display_time(hex_time,"Hex ")
 	display_time(rom_time,"Rom ")
 	display_time(total_time,"")
+
+	time.sleep(1)
 
 def display_time(time_to_display, part):
 	if int(time_to_display) <= 0:
@@ -66,9 +88,11 @@ def display_time(time_to_display, part):
 	elif time_to_display > 60:
 		time_to_display /= 60
 		time_to_display_int = int(time_to_display)
-		print(part+'Time Elapsed: ', time_to_display_int, ' minutes')
+		print(part+'Time Elapsed: ', time_to_display_int, ' minutes (', str(time_to_display),')')
 	else:
 		time_to_display_int = int(time_to_display)
-		print(part+'Time Elapsed: ', time_to_display_int, ' seconds')
+		print(part+'Time Elapsed: ', time_to_display_int, ' seconds (', str(time_to_display),')')
 
+system('cls' if name == 'nt' else 'clear')  # Clear screen before use
+#top = tkinter.Tk()
 convert_all(str(input("Path of assembly file to compile?: ")))
