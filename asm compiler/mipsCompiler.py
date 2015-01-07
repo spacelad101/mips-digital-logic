@@ -178,10 +178,8 @@ def mips_main(file_path):
 		tmp_int = 0;
 		for line in asmFile.read().splitlines():  # For lines in ams file pull string data
 			#print('Reading...', str(tmp_int))
-			tmp_int += 1;
-			#line = line.lstrip()
-			#line = line.rstrip()
-			print(line)
+			tmp_int += 1
+			line = line.strip('\t')
 			index = line.find('#')  # check for comment formatting
 			if index != 0 and line != '':  # if comment formatting not found at the beginning of the line
 				splice_file_input(line)  # pull the commands out of the input
