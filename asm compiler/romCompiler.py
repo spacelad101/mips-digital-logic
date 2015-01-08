@@ -2,7 +2,7 @@ __author__ = 'Tecnoman5000'
 __author__ = 'spacelad101'
 def rom_main(rom_file_name, hex_file_name):
 	hex_file_path = hex_file_name
-	hex_arr = []
+	hex_arr = ['0']
 	num_lines = 0
 
 	#open file and read in hex values

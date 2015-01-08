@@ -15,9 +15,9 @@ def convert_all(file_path):
 
 	#used for quick testing
 	if file_path == '':
-		print("Input was null, reverting to default (samples/example_asm)")
+		print("Input was null, reverting to default (samples/Optimized doubledabble assembly)")
 		#file_path = 'samples/example_asm'
-		file_path = '/media/tecno/55CB-85FD/Optimized doubledabble assembly'
+		file_path = 'samples/Optimized doubledabble assembly'
 		time.sleep(1)
 
 	#asm file stripper

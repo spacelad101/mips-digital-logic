@@ -183,7 +183,6 @@ def mips_main(file_path):
 			# To be removed
 			index = line.find('#')  # check for comment formatting
 			if index != 0 and line != '':  # if comment formatting not found at the beginning of the line
-				print(line)
 				splice_file_input(line)  # pull the commands out of the input
 
 	if len(commands) >= 4194304:
@@ -211,7 +210,7 @@ def mips_main(file_path):
 	if not os.path.exists("output"):
 		os.makedirs("output")
 
-	with open('output/' + ntpath.basename(os.path.splitext(file_name)[0]) + '_bin', 'w+') as asmFile:  # Open file
+	with open('output/' + ntpath.basename(os.path.splitext(file_name[:len(file_name)-8])[0]) + '_bin', 'w+') as asmFile:  # Open file
 		for c in range(0, len(commands)):
 				asmFile.write(str(commands[c]) + '\n')  # For lines in ams file pull string data
 				#print('Writing...', str(c + 1), '/', str(len(commands)))

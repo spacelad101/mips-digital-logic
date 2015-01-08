@@ -4,7 +4,7 @@ import os
 import ntpath
 
 def stripper_main(file_name):
-	with open('output/' + ntpath.basename(os.path.splitext(file_name)[0]) + '_asm', 'w+') as asm_file_tmp:  # Open file
+	with open('output/' + ntpath.basename(os.path.splitext(file_name)[0]) + '_asm.tmp', 'w+') as asm_file_tmp:  # Open file
 		with open(file_name, 'r') as asm_file_orgi:  # Open file
 			tmp_int = 0;
 			for line in asm_file_orgi.read().splitlines():  # For lines in ams file pull string data
@@ -53,8 +53,6 @@ def stripper_main(file_name):
 					# check for multiple spaces, replace with single space
 					if line.find('  ') != -1:
 						line = line.replace('  ',' ')
-	
-					print(line)
 					asm_file_tmp.write(line + '\n')
 
 	asm_file_tmp.close()
