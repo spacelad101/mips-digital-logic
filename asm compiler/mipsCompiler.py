@@ -179,15 +179,14 @@ def mips_main(file_path):
 		for line in asmFile.read().splitlines():  # For lines in ams file pull string data
 			#print('Reading...', str(tmp_int))
 			tmp_int += 1
-			line = line.lstrip('\t')
-			line = line.rstrip('\t')
-			#find all times in middle
-			#replace with single space
+
+			# To be removed
 			index = line.find('#')  # check for comment formatting
 			if index != 0 and line != '':  # if comment formatting not found at the beginning of the line
+				print(line)
 				splice_file_input(line)  # pull the commands out of the input
 
-	if len(commands) >= 4194303:
+	if len(commands) >= 4194304:
 		raise MemoryError('File size exceeds max addressable memory', 'Exceeds 16MB or 4194303 lines')
 
 	to_binary_converter()  # Start the hex value conversion process

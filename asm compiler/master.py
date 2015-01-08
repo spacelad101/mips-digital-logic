@@ -1,6 +1,7 @@
 __author__ = 'Tecnoman5000'
 __author__ = 'spacelad101'
 
+from asm_stripper import stripper_main
 from mipsCompiler import mips_main
 from bth import convert_hex
 from romCompiler import rom_main
@@ -12,19 +13,28 @@ import time
 
 def convert_all(file_path):
 
-
 	#used for quick testing
 	if file_path == '':
 		print("Input was null, reverting to default (samples/example_asm)")
-		file_path = 'samples/example_asm'
+		#file_path = 'samples/example_asm'
+		file_path = '/media/tecno/55CB-85FD/Optimized doubledabble assembly'
 		time.sleep(1)
+
+	#asm file stripper
+	stripper_main(file_path)
+
+
+	#define output path to store everything in
+	output = 'output/' + basename(path.splitext(file_path)[0])
+
+	asm_name = output + "_asm.tmp"
 
 	print("Mips Assembler Started...")
 	time_started = time.time()  # mark program start time
 
 	#Convert the assembly into binary
 	try:
-		mips_main(file_path)
+		mips_main(asm_name)
 	except MemoryError as mem_err:
 		print(mem_err.args)
 		exit(0) # End Script
@@ -45,8 +55,6 @@ def convert_all(file_path):
 	print("Hex Conversion Started...")
 	hex_time_start = time.time() # mark down start time of hex conversion
 
-	#define output path to store everything in
-	output = 'output/' + basename(path.splitext(file_path)[0])
 	#Convert the binary to hex
 	convert_hex(output)
 	hex_name= output + "_hex"
