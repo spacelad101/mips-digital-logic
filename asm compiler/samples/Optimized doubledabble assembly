@@ -1,0 +1,138 @@
+#############################################################################################################################################
+#REGISTER DIFINITIONS#
+# $1 = New shift register
+# $2 = Finished/working shift Register
+# $10 = 10^0 place value check
+# $11 = 10^1 place value check
+# $12 = 10^2 place value check
+# $13 = 10^3 place value check
+# $14 = 10^4 place value check
+# $15 = >=5 Check
+# $16 = Addition value, int 3 or int 0 depending on $15
+# $27 = Definition of important static value that is outside the range of possible immediate values
+# $29 = Counter for number to times to do a shift and check (d 13)
+# $28 = 1
+# $30 = Value to be converted
+#END REGISTER DEFINITIONS#
+#############################################################################################################################################
+#	Opcode		Registers		Comment									Instruction Address
+#############################################################################################################################################
+#Initilization#					0x000004
+	ori 		$30,$0,3246 		#Define the value to be converted (d 3246 here) in $30			0x000004
+	lui		$27,15			#Define $27 as 983010 (b 0000 0000 0000 1111 0000 0000 0000 0000)	0x000008
+	ori		$29,$0,13		#Setup counter for 13							0x00000c
+	ori		$28,$0,1		#Load 1 (subtraction value for counter) to $28				0x000010
+#End Initilization#
+#############################################################################################################################################
+#Begin Double Dabble Operation#
+#Shift 1
+	andi		$1,$30,32768		#Load $30(2^15 Bit) into $1 						0x000014
+	srl		$1,$1,31		#Shift $1 all the way to the right					0x000018
+	sll		$2,$2,1			#Shift $2 left 1 in prep. to recieve val in $1				0x00001c
+	or		$2,$2,$1		#$2 = $2 || $1 (Load the newest shift into $2)				0x000020
+	sll		$30,$30,1		#Shift $30 left 1 since the bit being shifted out is now in $2		0x000024
+#End Shift 1
+#Shift 2
+	andi		$1,$30,32768		#Load $30(2^15 Bit) into $1 						0x000028
+	srl		$1,$1,31		#Shift $1 all the way to the right					0x00002c
+	sll		$2,$2,1			#Shift $2 left 1 in prep. to recieve val in $1				0x000030
+	or		$2,$2,$1		#$2 = $2 || $1 (Load the newest shift into $2)				0x000034
+	sll		$30,$30,1		#Shift $30 left 1 since the bit being shifted out is now in $2		0x000038
+#End Shift 2
+#########################################################REPEAT 13 TIMES#####################################################################
+#Update Counter
+	sub		$29,$29,$28		#$29=$29-$28 (Subtract 1 from the counter)				0x00003c
+#Shift
+	andi		$1,$30,32768		#Load $30(2^15 Bit) into $1 						
+	srl		$1,$1,31		#Shift $1 all the way to the right					
+	sll		$2,$2,1			#Shift $2 left 1 in prep. to recieve val in $1				
+	or		$2,$2,1			#$2 = $2 || $1 (Load the newest shift into $2)				
+	sll		$30,$30,1		#Shift $30 left 1 since the bit being shifted out is now in $2		
+#End Shift
+#Check and add if >= 5
+#Load 10^x Vals
+	andi		$10,$2,15		#Load bits 0-3 of $2 into $10						
+	andi		$11,$2,240		#Load bits 4-7 of $2 into $11						
+	andi		$12,$2,3840		#Load bits 8-11 of $2 into $12						
+	andi		$13,$2,61440		#Load bits 12-15 of $2 into $13						
+	and		$14,$2,27		#Load bits 16-19 (Defined in $27) of $2 into $14			
+#Shift 10^x Vals to the furthest right
+	srl		$11,$11,4		#Shift $11 right 4 place values (to bits 0-3)				
+	srl		$12,$12,8		#Shift $12 right 8 place values (to bits 0-3)				
+	srl		$13,$13,12		#Shift $13 right 12 place values (to bits 0-3)				
+	srl		$14,$14,16		#Shift $14 right 16 place values (to bits 0-3)				
+#Check and Add 3 at each 10^x register
+#If the register holds a value >=5
+#Check 10^0
+	or 		$15,$0,$0		#Re/set $15 to 0							
+	sltiu		$15,$10,5		#Set $15 if $10 < 5							
+	nor		$15,$15,$0		#Invert $15 to make: if $10 >=5						
+	or		$16,$0,$0		#Re/set $16 to 0							
+	andi		$16,$15,3		#If $15 set, set $16 to 3 else 0					
+	add		$10,$16,$10		#Store contents of $16 (0 or 3) plus $10 to $10				
+#Check 10^1
+	or 		$15,$0,$0		#Re/set $15 to 0							
+	sltiu		$15,$11,5		#Set $15 if $11 < 5							
+	nor		$15,$15,$0		#Invert $15 to make: if $11 >=5						
+	or		$16,$0,$0		#Re/set $16 to 0							
+	andi		$16,$15,3		#If $15 set, set $16 to 3 else 0					
+	add		$11,$16,$11		#Store contents of $16 (0 or 3) plus $11 to $11				
+#Check 10^2
+	or 		$15,$0,$0		#Re/set $15 to 0							
+	sltiu		$15,$12,5		#Set $15 if $12 < 5							
+	nor		$15,$15,$0		#Invert $15 to make: if $12 >=5						
+	or		$16,$0,$0		#Re/set $16 to 0							
+	andi		$16,$15,3		#If $15 set, set $16 to 3 else 0					
+	add		$12,$16,$12		#Store contents of $16 (0 or 3) plus $12 to $12				
+#Check 10^3
+	or 		$15,$0,$0		#Re/set $15 to 0							
+	sltiu		$15,$13,5		#Set $15 if $13 < 5							
+	nor		$15,$15,$0		#Invert $15 to make: if $13 >=5						
+	or		$16,$0,$0		#Re/set $16 to 0							
+	andi		$16,$15,3		#If $15 set, set $16 to 3 else 0					
+	add		$13,$16,$13		#Store contents of $16 (0 or 3) plus $13 to $13				
+#Check 10^4
+	or 		$15,$0,$0		#Re/set $15 to 0							
+	sltiu		$15,$14,5		#Set $15 if $14 < 5							
+	nor		$15,$15,$0		#Invert $15 to make: if $14 >=5						
+	or		$16,$0,$0		#Re/set $16 to 0							
+	andi		$16,$15,3		#If $15 set, set $16 to 3 else 0					
+	add		$14,$16,$14		#Store contents of $16 (0 or 3) plus $14 to $14				
+#Shift 10^x registers back to original position
+	sll		$11,$11,4		#Shift $11 left 4							
+	sll		$12,$12,8		#Shift $12 left 8							
+	sll		$13,$13,12		#Shift $13 left 12							
+	sll		$14,$14,16		#Shift $14 left 16							
+#Store the checked values back into $2
+	or		$2,$0,$0		#Clear old values in $2							
+	or		$2,$2,$10		#Load checked bits 0-3 back into $2					
+	or		$2,$2,$11		#Load checked bits 4-7 back into $2					
+	or		$2,$2,$12		#Load checked bits 8-11 back into $2					
+	or		$2,$2,$13		#Load checked bits 12-15 back into $2					
+	or		$2,$2,$14		#Load checked bits 16-19 back into $2					
+#End Check
+#Branch back and repeat the shift and check if $29 is still > 0
+	bgtz		$29,60			#Jump back to do another shift check if counteer still > 0 (Jump to address d60/0x00003c)		
+#############################################################################################################################################
+#Do final shift
+#Shift 16
+	andi		$1,$30,32768		#Load $30(2^15 Bit) into $1
+	srl		$1,$1,31		#Shift $1 all the way to the right
+	sll		$2,$2,1			#Shift $2 left 1 in prep. to recieve val in $1
+	or		$2,$2,$1		#$2 = $2 || $1 (Load the newest shift into $2)
+	sll		$30,$30,1		#Shift $30 left 1 since the bit being shifted out is now in $2
+#End Shift 16
+#Clear all of the temporary, and now unused, registers (all except $2 and $30)
+	or		$1,$0,$0		#Clear $1
+	or		$10,$0,$0		#Clear $10
+	or		$11,$0,$0		#Clear $11
+	or		$12,$0,$0		#Clear $12
+	or		$13,$0,$0		#Clear $13
+	or		$14,$0,$0		#Clear $14
+	or		$15,$0,$0		#Clear $15
+	or		$16,$0,$0		#Clear $16
+	or		$27,$0,$0		#Clear $27
+	or		$28,$0,$0		#Clear $28
+	or		$29,$0,$0		#Clear $29
+#End Double Dabble Operation#
+#############################################################################################################################################
