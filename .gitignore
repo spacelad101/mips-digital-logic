@@ -221,3 +221,8 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+asm compiler/output/example_asm_bin
+asm compiler/samples/example_asm
+asm compiler/output/example_asm_hex
+asm compiler/output/example_asm_rom
+*.pyc
