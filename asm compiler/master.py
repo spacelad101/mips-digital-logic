@@ -14,11 +14,10 @@ import time
 def convert_all(file_path):
 
 	#used for quick testing
+
 	if file_path == '':
-		print("Input was null, reverting to default (samples/Optimized doubledabble assembly)")
-		#file_path = 'samples/example_asm'
-		file_path = 'samples/Optimized doubledabble assembly'
-		time.sleep(1)
+		print("No input file specified")
+		return 0
 
 	#asm file stripper
 	stripper_main(file_path)
@@ -80,7 +79,7 @@ def convert_all(file_path):
 	total_time = time_ended - time_started
 
 	time.sleep(1)
-	system('cls' if name == 'nt' else 'clear')  # Clear screen of operation text
+	#system('cls' if name == 'nt' else 'clear')  # Clear screen of operation text
 
 	# Display the different time stamps
 	display_time(mips_time,"Mips ")
