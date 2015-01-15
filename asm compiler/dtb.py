@@ -75,4 +75,4 @@ def convert(bit_length, number):
     for x in reversed(range(0, exponent)):
         bin_str += str(binary_arr[x])
     return bin_str
-print(convert(16, -7493))  # for testing purposes
+#print(convert(16, -7493))  # for testing purposes
