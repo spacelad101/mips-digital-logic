@@ -52,9 +52,9 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <a name="valign" val="base"/>
     </tool>
   </lib>
-  <lib desc="file#/home/noah/Final/cpu/mips-digital-logic/circuits/Sub Circuits/Bitwise Logic Unit.circ" name="3"/>
-  <lib desc="file#/home/noah/Final/cpu/mips-digital-logic/circuits/Sub Circuits/Branch Unit.circ" name="4"/>
-  <lib desc="file#/home/noah/Final/cpu/mips-digital-logic/circuits/Sub Circuits/Logical Unit.circ" name="5"/>
+  <lib desc="file#../Sub Circuits/Bitwise Logic Unit.circ" name="3"/>
+  <lib desc="file#../Sub Circuits/Branch Unit.circ" name="4"/>
+  <lib desc="file#../Sub Circuits/Logical Unit.circ" name="5"/>
   <main name="BLU"/>
   <options>
     <a name="gateUndefined" val="ignore"/>

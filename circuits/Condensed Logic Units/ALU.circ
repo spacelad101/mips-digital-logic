@@ -47,7 +47,7 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <a name="valign" val="base"/>
     </tool>
   </lib>
-  <lib desc="file#/home/noah/Final/cpu/mips-digital-logic/circuits/Sub Circuits/ALU.circ" name="3"/>
+  <lib desc="file#../Sub Circuits/ALU.circ" name="3"/>
   <main name="ALU"/>
   <options>
     <a name="gateUndefined" val="ignore"/>
