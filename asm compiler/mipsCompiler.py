@@ -130,9 +130,7 @@ def to_binary_converter():
 
 			if find_reg_formatting == 0:  # if a '$' was found and is at the beginning of the commands (to avoid conflict with hex value commands)
 				tmp_array[len_input_script] = tmp_array[len_input_script][find_reg_formatting + 1:]  # remove the '$' formatting
-				print(tmp_array[len_input_script])
 				tmp_array[len_input_script] = registers[int(tmp_array[len_input_script])]  # use the register commands as a reference in the 'registers' array and replace with the corresponding binary number
-				print(tmp_array[len_input_script])
 
 			else:  # if not a register value ($*), assume it's a decimal number
 				print(tmp_array[len_input_script].isdigit())
@@ -150,9 +148,6 @@ def to_binary_converter():
 
 					if  convert(current_bit_length, int(tmp_array[len_input_script])) == 'badnum':  # if the convert fails, throw error # Error message
 						raise ValueError('Invalid Bit length or Value: BADNUM','Bit length = ' + str(current_bit_length) + ', Decimal Value = ' + tmp_array[len_input_script])
-					print(tmp_array)
-					print(current_bit_length)
-					print(convert(current_bit_length, int(tmp_array[len_input_script])))
 					tmp_array[len_input_script] = convert(current_bit_length, int(tmp_array[len_input_script]))
 
 		for len_input_script in range(0, len(tmp_array)):
